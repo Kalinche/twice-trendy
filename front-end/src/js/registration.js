@@ -10,6 +10,8 @@ document.addEventListener('DOMContentLoaded', function () {
         var email = document.getElementById('email').value;
         var password = document.getElementById('password').value;
         var confirmPassword = document.getElementById('confirmPassword').value;
+        var phoneNumber = document.getElementById('phoneNumber').value;
+        var address = document.getElementById('address').value;
 
         // Валидация на входните данни
         if (!validateEmail(email)) {
@@ -27,8 +29,13 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
+        if (!phoneNumber) {
+            alert('Моля, въведете телефонен номер.');
+            return;
+        }
+
         // Изпращане на заявка за регистрация към сървъра
-        register(email, password);
+        register(email, password, phoneNumber, address);
     };
 });
 
@@ -39,36 +46,38 @@ function validateEmail(email) {
 }
 
 // Функция за изпращане на заявка за регистрация
-function register(email, password) {
-    //TODO: Определяне на URL към сървърния endpoint за регистрация
+function register(email, password, phoneNumber, address) {
+    //TODO: change
     var registerUrl = 'https://example.com/api/register';
 
-    // Подготовка на данните за изпращане
     var data = {
         email: email,
-        password: password
+        password: password,
+        phoneNumber: phoneNumber,
+        address: address
     };
 
-    // Използване на fetch API за изпращане на заявката
     fetch(registerUrl, {
-        method: 'POST', // Метод на заявката
+        method: 'POST',
         headers: {
-            'Content-Type': 'application/json' // Указване на типа на съдържанието
+            'Content-Type': 'application/json'
         },
-        body: JSON.stringify(data) // Преобразуване на данните в JSON формат
+        body: JSON.stringify(data)
     })
         .then(response => {
             if (!response.ok) {
-                throw new Error('Проблем при заявката за регистрация: ' + response.statusText);
+                return response.json().then(err => {
+                    throw new Error(err.message); // Предполага се, че сървърът връща съобщение за грешка в 'message'
+                });
             }
-            return response.json(); // Обработка на JSON отговора
+            return response.json();
         })
         .then(data => {
             console.log('Успешна регистрация:', data);
-            // Тук можете да добавите логика при успешна регистрация, например пренасочване към страницата за вход
+            // Тук добавете логика за обработка след успешна регистрация
         })
         .catch(error => {
-            console.error('Грешка при регистрация:', error);
-            // Тук можете да добавите логика за обработка на грешки
+            console.error('Грешка при регистрация:', error.message);
+            alert('Грешка при регистрация: ' + error.message); // Показва съобщение за грешка на потребителя
         });
 }

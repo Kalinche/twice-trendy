@@ -1,44 +1,99 @@
-/* Основен стил на тялото на страницата */
+/* Основни стилове за цялата страница */
+html,
 body {
-    font-family: Arial, sans-serif;
-    /* Изберете подходящ шрифт за вашия проект */
+    height: 100%;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
-    /* Лек цвят на фона за по-добра четимост */
-}
-
-/* Стилове за основния контейнер */
-.container {
-    width: 80%;
-    /* Или фиксирана ширина, в зависимост от вашите предпочитания */
-    margin: 0 auto;
-    /* Центриране на контейнера */
-    padding: 20px;
-}
-
-/* Стил за заглавие */
-h1 {
+    display: flex;
+    flex-direction: column;
+    font-family: 'Arial', sans-serif;
+    background-color: #faf7f0;
+    /* Кремаво бяло за фона на страницата */
     color: #333;
-    /* Изберете цвят, подходящ за вашата тема */
+    flex: 1;
 }
 
-/* Стил за параграфи */
-p {
-    line-height: 1.6;
-    /* Увеличете редовото разстояние за по-добра четимост */
-}
-
-/* Подходящи разстояния за всички секции */
-section {
-    margin-bottom: 20px;
-}
-
-/* Стилове за хедъра и футъра, ако са необходими */
-header,
-footer {
-    background-color: #ddd;
-    /* Лек цвят на фона */
+/* Стилизиране на хедъра и навигационното меню */
+header {
+    background-color: #59b99c;
+    /* Зелен цвят за фона на хедъра */
+    color: #ffffff;
+    /* Бял текст */
     padding: 10px 0;
+}
+
+.navbar {
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-menu {
+    list-style: none;
+    padding: 0;
+    display: flex;
+}
+
+.nav-menu li {
+    margin-right: 20px;
+}
+
+.nav-menu li:last-child {
+    margin-right: 0;
+}
+
+.nav-menu a {
+    color: #ffffff;
+    /* Бял цвят за текста на връзките */
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.nav-menu a:hover {
+    color: #ceebe2;
+    /* Светло зелено за hover ефект на връзките */
+    text-decoration: underline;
+}
+
+/* Стилизиране на основното съдържание */
+main {
+    flex: 1;
+    padding: 20px;
+    margin: 30px;
+    background-color: #ffffff;
+    /* Бял фон за основното съдържание */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+}
+
+/* Стилизиране на футъра */
+footer {
+    background-color: #74b7a0;
+    /* Запазваме тъмния фон за контраст */
+    color: #ffffff;
+    /* Бял текст */
     text-align: center;
+    padding: 10px 0;
+}
+
+a.special-link a.special-link {
+    color: #59b99c;
+    text-decoration: none;
+    transition: color 0.3s ease, text-decoration 0.3s ease;
+}
+
+a.special-link:hover,
+a.special-link:focus {
+    text-decoration: underline;
+    text-decoration-color: #59b99c;
+}
+
+a.special-link:active {
+    color: #007bff;
+}
+
+a.special-link:visited {
+    color: #59b99c;
 }
