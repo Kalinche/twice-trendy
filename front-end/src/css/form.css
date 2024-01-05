@@ -1,24 +1,23 @@
 /* Стилове, общи за всички форми */
 
 /* Родителски контейнер */
-body.form-page {
+.form-page {
     display: flex;
     justify-content: center;
-    /* Центрира хоризонтално */
     align-items: center;
-    /* Центрира вертикално */
-    min-height: 100vh;
-    /* Минимална височина, за да заема целия височинен пространство на вюпорта */
+    /* Кремаво бяло за фона на страницата с формата */
 }
 
 .form-container {
     width: 300px;
     margin: 0 auto;
     padding: 20px;
-    border: 1px solid #ddd;
+    border: 1px solid #59b99c;
+    /* Зелен цвят за рамката */
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    background-color: #fff;
+    background-color: #ffffff;
+    /* Бял фон за формата */
 }
 
 .form-container h1 {
@@ -34,6 +33,8 @@ body.form-page {
 .form-group label {
     display: block;
     margin-bottom: 5px;
+    color: #333;
+    /* Тъмен текст за етикетите */
 }
 
 .form-group input[type="email"],
@@ -41,7 +42,8 @@ body.form-page {
 .form-group input[type="text"] {
     width: 100%;
     padding: 10px;
-    border: 1px solid #ddd;
+    border: 1px solid #ceebe2;
+    /* Светло зелена рамка за полетата */
     border-radius: 4px;
     box-sizing: border-box;
 }
@@ -51,24 +53,22 @@ body.form-page {
     padding: 10px;
     border: none;
     border-radius: 4px;
-    background-color: #007bff;
+    background-color: #59b99c;
+    /* Зелен цвят за бутона */
     color: white;
     cursor: pointer;
     font-size: 15px;
 }
 
 .button:hover {
-    background-color: #0056b3;
-}
-
-.link {
-    color: #007bff;
-    text-decoration: none;
-    display: block;
-    text-align: center;
-    margin-top: 10px;
+    background-color: #ceebe2;
+    /* Светло зелено за hover ефект на бутона */
+    color: #333;
+    /* Тъмен текст при hover */
 }
 
 .link:hover {
     text-decoration: underline;
+    color: #007bff;
+    /* Сменяме цвета при hover за контраст */
 }

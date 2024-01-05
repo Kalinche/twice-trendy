@@ -1,4 +1,8 @@
 document.addEventListener('DOMContentLoaded', function () {
+    if (localStorage.getItem('loggedIn') === 'true') {
+        window.location.href = 'index.html';
+    }
+
     // Връзка към формата за вход
     var loginForm = document.getElementById('loginForm');
 
@@ -59,11 +63,12 @@ function login(email, password) {
         })
         .then(data => {
             console.log('Успешен вход:', data);
-            // Тук можете да добавите логика при успешен вход, например пренасочване
+            localStorage.setItem('loggedIn', true);
+            window.location.href = '../html/index.html';
         })
         .catch(error => {
-            console.error('Грешка при вход:', error);
-            // Тук можете да добавите логика за обработка на грешки
+            console.error('Грешка при вход:', error.message);
+            alert('Грешка при вход: ' + error.message); // Показва съобщение за грешка на потребителя
         });
 }
 
