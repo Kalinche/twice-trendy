@@ -1,0 +1,28 @@
+.offers-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px;
+    justify-content: center;
+}
+
+.offer-card {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    /* Или друг размер по ваш избор */
+}
+
+.offer-card img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.offer-card h3 {
+    padding: 10px;
+    margin: 0;
+    text-align: center;
+}

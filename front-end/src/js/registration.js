@@ -68,8 +68,8 @@ function register(email, password, phoneNumber, address) {
             email: email,
             password: password,
             phoneNumber: phoneNumber,
-            address: address
-        password: password,
+            address: address,
+            password: password,
             phoneNumber: phoneNumber,
             address: address
         };
@@ -78,22 +78,17 @@ function register(email, password, phoneNumber, address) {
             method: 'POST',
             method: 'POST',
             headers: {
+                'Content-Type': 'application/json',
                 'Content-Type': 'application/json'
-            'Content-Type': 'application/json'
             },
             body: JSON.stringify(data)
-        body: JSON.stringify(data)
         })
             .then(response => {
                 if (!response.ok) {
                     return response.json().then(err => {
                         throw new Error(err.message); // Предполага се, че сървърът връща съобщение за грешка в 'message'
                     });
-                    return response.json().then(err => {
-                        throw new Error(err.message); // Предполага се, че сървърът връща съобщение за грешка в 'message'
-                    });
                 }
-                return response.json();
                 return response.json();
             })
             .then(data => {
@@ -103,7 +98,6 @@ function register(email, password, phoneNumber, address) {
             .catch(error => {
                 console.error('Грешка при регистрация:', error.message);
                 alert('Грешка при регистрация: ' + error.message); // Показва съобщение за грешка на потребителя
-                console.error('Грешка при регистрация:', error.message);
-                alert('Грешка при регистрация: ' + error.message); // Показва съобщение за грешка на потребителя
             });
     }
+}
