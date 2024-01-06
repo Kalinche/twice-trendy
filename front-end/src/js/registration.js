@@ -16,6 +16,8 @@ document.addEventListener('DOMContentLoaded', function () {
         var confirmPassword = document.getElementById('confirmPassword').value;
         var phoneNumber = document.getElementById('phoneNumber').value;
         var address = document.getElementById('address').value;
+        var phoneNumber = document.getElementById('phoneNumber').value;
+        var address = document.getElementById('address').value;
 
         // Валидация на входните данни
         if (!validateEmail(email)) {
@@ -38,7 +40,13 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
+        if (!phoneNumber) {
+            alert('Моля, въведете телефонен номер.');
+            return;
+        }
+
         // Изпращане на заявка за регистрация към сървъра
+        register(email, password, phoneNumber, address);
         register(email, password, phoneNumber, address);
     };
 });
@@ -52,36 +60,50 @@ function validateEmail(email) {
 // Функция за изпращане на заявка за регистрация
 function register(email, password, phoneNumber, address) {
     //TODO: change
-    var registerUrl = 'https://example.com/api/register';
+    function register(email, password, phoneNumber, address) {
+        //TODO: change
+        var registerUrl = 'https://example.com/api/register';
 
-    var data = {
-        email: email,
+        var data = {
+            email: email,
+            password: password,
+            phoneNumber: phoneNumber,
+            address: address
         password: password,
-        phoneNumber: phoneNumber,
-        address: address
-    };
+            phoneNumber: phoneNumber,
+            address: address
+        };
 
-    fetch(registerUrl, {
-        method: 'POST',
-        headers: {
+        fetch(registerUrl, {
+            method: 'POST',
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
             'Content-Type': 'application/json'
-        },
+            },
+            body: JSON.stringify(data)
         body: JSON.stringify(data)
-    })
-        .then(response => {
-            if (!response.ok) {
-                return response.json().then(err => {
-                    throw new Error(err.message); // Предполага се, че сървърът връща съобщение за грешка в 'message'
-                });
-            }
-            return response.json();
         })
-        .then(data => {
-            console.log('Успешна регистрация:', data);
-            window.location.href = '../html/login.html';
-        })
-        .catch(error => {
-            console.error('Грешка при регистрация:', error.message);
-            alert('Грешка при регистрация: ' + error.message); // Показва съобщение за грешка на потребителя
-        });
-}
+            .then(response => {
+                if (!response.ok) {
+                    return response.json().then(err => {
+                        throw new Error(err.message); // Предполага се, че сървърът връща съобщение за грешка в 'message'
+                    });
+                    return response.json().then(err => {
+                        throw new Error(err.message); // Предполага се, че сървърът връща съобщение за грешка в 'message'
+                    });
+                }
+                return response.json();
+                return response.json();
+            })
+            .then(data => {
+                console.log('Успешна регистрация:', data);
+                window.location.href = '../html/login.html';
+            })
+            .catch(error => {
+                console.error('Грешка при регистрация:', error.message);
+                alert('Грешка при регистрация: ' + error.message); // Показва съобщение за грешка на потребителя
+                console.error('Грешка при регистрация:', error.message);
+                alert('Грешка при регистрация: ' + error.message); // Показва съобщение за грешка на потребителя
+            });
+    }
