@@ -22,6 +22,10 @@ document.addEventListener('DOMContentLoaded', function () {
         })
         .catch(error => {
             console.error('Грешка при зареждане на обявите:', error);
-            // Тук може да добавите обработка на грешки
         });
 });
+
+function redirectToOfferDetails(offerId) {
+    //TODO: Променете URL адреса според структурата на вашето приложение
+    window.location.href = '/path-to-offer-details/' + offerId;
+}

@@ -1,11 +1,7 @@
-/* Стилове, общи за всички форми */
-
-/* Родителски контейнер */
 .form-page {
     display: flex;
     justify-content: center;
     align-items: center;
-    /* Кремаво бяло за фона на страницата с формата */
 }
 
 .form-container {
@@ -13,11 +9,9 @@
     margin: 0 auto;
     padding: 20px;
     border: 1px solid #59b99c;
-    /* Зелен цвят за рамката */
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     background-color: #ffffff;
-    /* Бял фон за формата */
 }
 
 .form-container h1 {
@@ -34,16 +28,13 @@
     display: block;
     margin-bottom: 5px;
     color: #333;
-    /* Тъмен текст за етикетите */
 }
 
 .form-group input,
 .form-group textarea,
 .form-group select {
     width: 100%;
-    /* Заемат 80% от ширината на формата */
     margin: 0 auto;
-    /* Центрира полетата в рамките на формата */
     padding: 10px;
     border: 1px solid #ceebe2;
     border-radius: 4px;
@@ -56,7 +47,6 @@
     border: none;
     border-radius: 4px;
     background-color: #59b99c;
-    /* Зелен цвят за бутона */
     color: white;
     cursor: pointer;
     font-size: 15px;
@@ -64,13 +54,10 @@
 
 .button:hover {
     background-color: #ceebe2;
-    /* Светло зелено за hover ефект на бутона */
     color: #333;
-    /* Тъмен текст при hover */
 }
 
 .link:hover {
     text-decoration: underline;
     color: #007bff;
-    /* Сменяме цвета при hover за контраст */
 }
