@@ -39,7 +39,7 @@ function validateEmail(email) {
 // Функция за изпращане на заявка за вход
 function login(email, password) {
     //TODO: Определяне на URL към сървърния endpoint за вход
-    var loginUrl = 'https://example.com/api/login';
+    var loginUrl = 'https://localhost:8080/login';
 
     // Подготовка на данните за изпращане
     var data = {

@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-    fetch('path/to/your/server/endpoint') //TODO: Заменете с реалния URL към сървъра
+    fetch('https://localhost:8080/offers/')
         .then(response => response.json())
         .then(data => {
             const offersContainer = document.querySelector('.offers-container');

@@ -62,7 +62,7 @@ function register(email, password, phoneNumber, address) {
     //TODO: change
     function register(email, password, phoneNumber, address) {
         //TODO: change
-        var registerUrl = 'https://example.com/api/register';
+        var registerUrl = 'https://localhost:8080/register/';
 
         var data = {
             email: email,

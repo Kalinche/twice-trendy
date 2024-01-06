@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var offerId = getOfferIdFromURL();
 
     //TODO: change
-    fetch('https://yourdomain.com/api/offers/' + offerId)
+    fetch('https://localhost:8080/offers/' + offerId)
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
