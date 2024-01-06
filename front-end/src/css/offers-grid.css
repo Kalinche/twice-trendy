@@ -7,18 +7,24 @@
 }
 
 .offer-card {
+    background-color: #faf7f0;
+    width: 200px;
+    height: 300px;
     border: 1px solid #ddd;
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    width: 300px;
-    /* Или друг размер по ваш избор */
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
 }
 
 .offer-card img {
-    width: 100%;
-    height: auto;
-    display: block;
+    width: 80%;
+    height: 200px;
+    object-fit: cover;
 }
 
 .offer-card h3 {

@@ -37,13 +37,15 @@
     /* Тъмен текст за етикетите */
 }
 
-.form-group input[type="email"],
-.form-group input[type="password"],
-.form-group input[type="text"] {
+.form-group input,
+.form-group textarea,
+.form-group select {
     width: 100%;
+    /* Заемат 80% от ширината на формата */
+    margin: 0 auto;
+    /* Центрира полетата в рамките на формата */
     padding: 10px;
     border: 1px solid #ceebe2;
-    /* Светло зелена рамка за полетата */
     border-radius: 4px;
     box-sizing: border-box;
 }
