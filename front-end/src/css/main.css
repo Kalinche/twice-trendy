@@ -1,11 +1,15 @@
 /* Основни стилове за цялата страница */
 html,
+/* Основни стилове за цялата страница */
+html,
 body {
+    height: 100%;
     height: 100%;
     margin: 0;
     padding: 0;
     display: flex;
     flex-direction: column;
+    min-height: 100vh;
     font-family: 'Arial', sans-serif;
     background-color: #faf7f0;
     /* Кремаво бяло за фона на страницата */
@@ -23,77 +27,153 @@ header {
 }
 
 .navbar {
-    width: 80%;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
 
-.nav-menu {
-    list-style: none;
-    padding: 0;
-    display: flex;
-}
+    /* Стилизиране на хедъра и навигационното меню */
+    header {
+        background-color: #59b99c;
+        /* Зелен цвят за фона на хедъра */
+        color: #ffffff;
+        /* Бял текст */
+        padding: 10px 0;
+    }
 
-.nav-menu li {
-    margin-right: 20px;
-}
+    .navbar {
+        width: 80%;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
 
-.nav-menu li:last-child {
-    margin-right: 0;
-}
+    .nav-menu {
+        list-style: none;
+        padding: 0;
+        display: flex;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
 
-.nav-menu a {
-    color: #ffffff;
-    /* Бял цвят за текста на връзките */
-    text-decoration: none;
-    font-weight: bold;
-}
+    .nav-menu {
+        list-style: none;
+        padding: 0;
+        display: flex;
+    }
 
-.nav-menu a:hover {
-    color: #ceebe2;
-    /* Светло зелено за hover ефект на връзките */
-    text-decoration: underline;
-}
+    .nav-menu li {
+        margin-right: 30px;
+    }
 
-/* Стилизиране на основното съдържание */
-main {
-    flex: 1;
-    padding: 20px;
-    margin: 30px;
-    background-color: #ffffff;
-    /* Бял фон за основното съдържание */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    border-radius: 5px;
-}
+    .nav-menu li:last-child {
+        margin-right: 0;
+    }
 
-/* Стилизиране на футъра */
-footer {
-    background-color: #74b7a0;
-    /* Запазваме тъмния фон за контраст */
-    color: #ffffff;
-    /* Бял текст */
-    text-align: center;
-    padding: 10px 0;
-}
+    .nav-menu a {
+        color: #ffffff;
+        /* Бял цвят за текста на връзките */
+        text-decoration: none;
+        font-weight: bold;
+    }
 
-a.special-link a.special-link {
-    color: #59b99c;
-    text-decoration: none;
-    transition: color 0.3s ease, text-decoration 0.3s ease;
-}
+    .nav-menu a:hover {
+        color: #ceebe2;
+        /* Светло зелено за hover ефект на връзките */
+        text-decoration: underline;
+    }
 
-a.special-link:hover,
-a.special-link:focus {
-    text-decoration: underline;
-    text-decoration-color: #59b99c;
-}
+    /* Стилизиране на основното съдържание */
+    main {
+        flex-grow: 1;
+        padding: 20px;
+        margin: 30px;
+        background-color: #ffffff;
+        /* Бял фон за основното съдържание */
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        border-radius: 5px;
+    }
 
-a.special-link:active {
-    color: #007bff;
-}
+    /* Стилизиране на футъра */
+    /* Стилизиране на футъра */
+    footer {
+        background-color: #74b7a0;
+        /* Запазваме тъмния фон за контраст */
+        color: #ffffff;
+        /* Бял текст */
+        text-align: center;
+        padding: 10px 0;
+    }
 
-a.special-link:visited {
-    color: #59b99c;
-}
+    a.special-link a.special-link {
+        color: #59b99c;
+        text-decoration: none;
+        transition: color 0.3s ease, text-decoration 0.3s ease;
+    }
+
+    a.special-link:hover,
+    a.special-link:focus {
+        text-decoration: underline;
+        text-decoration-color: #59b99c;
+    }
+
+    a.special-link:active {
+        color: #007bff;
+    }
+
+    a.special-link:visited {
+        color: #59b99c;
+    }
+
+    .hidden {
+        visibility: hidden;
+        /* Скрива елемента, но запазва неговото пространство */
+        opacity: 0;
+        /* Прави елемента прозрачен */
+        transition: opacity 0.5s;
+        /* Добавя плавен преход за прозрачността */
+    }
+
+    .visible {
+        visibility: visible;
+        opacity: 1;
+    }
+
+    .content-container {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        position: relative;
+    }
+
+    .overlay-content {
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        /* Други стилове за препокриващите се елементи */
+    }
+
+    h1 {
+        text-align: center;
+        padding: 10px 0;
+    }
+
+    a.special-link a.special-link {
+        color: #59b99c;
+        text-decoration: none;
+        transition: color 0.3s ease, text-decoration 0.3s ease;
+    }
+
+    a.special-link:hover,
+    a.special-link:focus {
+        text-decoration: underline;
+        text-decoration-color: #59b99c;
+    }
+
+    a.special-link:active {
+        color: #007bff;
+    }
+
+    a.special-link:visited {
+        color: #59b99c;
+    }
