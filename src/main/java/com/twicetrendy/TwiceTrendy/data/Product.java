@@ -49,18 +49,18 @@ public class Product {
     private String status;
 
     @OneToMany(mappedBy = "productid")
-    private Set<Offer> offers;
+    private Set<Order> orders;
 
     {
-        offers = new LinkedHashSet<>();
+        orders = new LinkedHashSet<>();
     }
 
-    public Set<Offer> getOffers() {
-        return offers;
+    public Set<Order> getOrders() {
+        return orders;
     }
 
-    public void setOffers(Set<Offer> offers) {
-        this.offers = offers;
+    public void setOrders(Set<Order> orders) {
+        this.orders = orders;
     }
 
     public String getStatus() {

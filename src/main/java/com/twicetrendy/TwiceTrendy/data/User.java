@@ -32,10 +32,14 @@ public class User {
     private Set<Product> products = new LinkedHashSet<>();
 
     @OneToMany(mappedBy = "userid")
-    private Set<Offer> offers;
+    private Set<Order> orders;
 
     {
-        offers = new LinkedHashSet<>();
+        orders = new LinkedHashSet<>();
+    }
+
+    public User() {
+
     }
 
     public User(String name, String email, String address, String phone, String passwordhash) {
@@ -46,12 +50,12 @@ public class User {
         setPhone(phone);
     }
 
-    public Set<Offer> getOffers() {
-        return offers;
+    public Set<Order> getOrders() {
+        return orders;
     }
 
-    public void setOffers(Set<Offer> offers) {
-        this.offers = offers;
+    public void setOrders(Set<Order> orders) {
+        this.orders = orders;
     }
 
     public Set<Product> getProducts() {
