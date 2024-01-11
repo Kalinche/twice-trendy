@@ -35,13 +35,13 @@ public class JpaUserService implements UserService {
         return user.get();
     }
 
-    //create a new tag
+    //create a new user
     @Override
-    public User create(User tag) {
-        return jpaUserRepository.saveAndFlush(tag);
+    public User create(User user) {
+        return jpaUserRepository.saveAndFlush(user);
     }
 
-    //delete a tag by id
+    //delete a user by id
     @Override
     public void delete(int id) {
         jpaUserRepository.deleteById(id);

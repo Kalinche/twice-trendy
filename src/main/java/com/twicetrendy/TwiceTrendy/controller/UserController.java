@@ -20,17 +20,33 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PostMapping("register")
+    @PostMapping("login")
     public ResponseEntity<Void> create(@RequestBody final UserDto user) throws IOException {
         this.userService.get(user.username, user.password);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @PostMapping("login")
+    @PostMapping("register")
     public ResponseEntity<Void> register(@RequestBody final UserDto user) throws IOException {
-        this.userService.create(new User(user.username, user.email, user.address, user.phone, user.password));
+        if (this.userService.findByUserId(user.id).isPresent()) {
+            return new ResponseEntity<>(HttpStatus.ALREADY_REPORTED);
+        } else {
+            this.userService.create(new User(user.username, user.email, user.address, user.phone, user.password));
+        }
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+    /**
+     * post request example body -> not working
+     *{
+     *   "id": 3,
+     *   "username": "John Smith",
+     *   "email": "a@df.d",
+     *   "phone": "2333",
+     *   "address": "fd",
+     *   "passwordhash": "232"
+     * }
+     */
 
     @DeleteMapping("users/{userId}")
     public ResponseEntity<Void> delete(@PathVariable final Integer id) throws IOException {
