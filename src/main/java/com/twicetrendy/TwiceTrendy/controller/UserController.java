@@ -20,33 +20,37 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PostMapping("login")
-    public ResponseEntity<Void> create(@RequestBody final UserDto user) throws IOException {
-        this.userService.get(user.username, user.password);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    @PostMapping("/login")
+    public ResponseEntity<Void> login(@RequestBody final UserDto user) {
+        User dbUser = this.userService.get(user.username, user.password);
+        if (dbUser != null) {
+            return new ResponseEntity<>(HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
-    @PostMapping("register")
-    public ResponseEntity<Void> register(@RequestBody final UserDto user) throws IOException {
+    @PostMapping("/register")
+    public ResponseEntity<Void> register(@RequestBody final UserDto user) {
         if (this.userService.findByUserId(user.id).isPresent()) {
             return new ResponseEntity<>(HttpStatus.ALREADY_REPORTED);
         } else {
             this.userService.create(new User(user.username, user.email, user.address, user.phone, user.password));
         }
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    /**
-     * post request example body -> not working
-     *{
-     *   "id": 3,
-     *   "username": "John Smith",
-     *   "email": "a@df.d",
-     *   "phone": "2333",
-     *   "address": "fd",
-     *   "passwordhash": "232"
-     * }
-     */
+    //with requests the attributes' names should match the DTOs!!!
+    //post request example body -> working for register
+
+//    {
+//        "id": 8,
+//        "username": "John Smith",
+//        "email": "a@df6f.d",
+//        "phone": "2333",
+//        "address": "fd",
+//        "password": "23g2"
+//    }
 
     @DeleteMapping("users/{userId}")
     public ResponseEntity<Void> delete(@PathVariable final Integer id) throws IOException {

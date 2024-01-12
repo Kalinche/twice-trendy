@@ -14,6 +14,7 @@ public interface UserService {
 
     void delete(int id);
 
+    //methods used in the controller
     Optional<User> findByUserId(Integer userId);
 
     Optional<User> findByUserName(String name);

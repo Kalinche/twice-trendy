@@ -17,7 +17,7 @@ public class JpaUserService implements UserService {
         this.jpaUserRepository = jpaUserRepository;
     }
 
-    //get a tag via id
+    //get a user via id
     @Override
     public User get(int id) {
         Optional<User> tag = jpaUserRepository.findById(id);
@@ -25,13 +25,13 @@ public class JpaUserService implements UserService {
             return tag.get();
         }
         throw new NoSuchElementException(
-                "Tag with ID: " + id + " was not found!");
+                "User with ID: " + id + " was not found!");
     }
 
-    //get a tag via its name
+    //get a user via its name
     @Override
     public User get(String name, String password) {
-        Optional<User>user = jpaUserRepository.findByNameAndPasswordhash(name, password);
+        Optional<User> user = jpaUserRepository.findByNameAndPasswordhash(name, password);
         return user.get();
     }
 
@@ -48,12 +48,12 @@ public class JpaUserService implements UserService {
     }
 
     @Override
-    public Optional<User> findByUserId(Integer tagId) {
-        return Optional.empty();
+    public Optional<User> findByUserId(Integer userId) {
+        return jpaUserRepository.findById(userId);
     }
 
     @Override
     public Optional<User> findByUserName(String name) {
-        return Optional.empty();
+        return jpaUserRepository.findByName(name);
     }
 }

@@ -1,8 +1,10 @@
 package com.twicetrendy.TwiceTrendy.service;
 
 import com.twicetrendy.TwiceTrendy.data.Product;
+import com.twicetrendy.TwiceTrendy.data.User;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ProductService {
     Product get(int id);
@@ -16,4 +18,6 @@ public interface ProductService {
     void delete(int id);
 
     void saveAll(List<Product> products);
+
+    Optional<Product> findByProductId(int id);
 }

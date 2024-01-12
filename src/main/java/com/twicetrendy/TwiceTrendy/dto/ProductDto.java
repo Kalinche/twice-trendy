@@ -1,16 +1,16 @@
 package com.twicetrendy.TwiceTrendy.dto;
 
 public class ProductDto {
-    private int id;
-    private String imagesURL;
-    private String name;
-    private int userID;
-    private String author;
-    private String description;
-    private double price;
-    private String size;
-    private String color;
-    private String brand;
-    private String condition;//enum
-    private String status;//enum
+    public int id;
+    public String imagesURL;
+    public String name;
+    public int userID;
+    public String author;
+    public String description;
+    public double price;
+    public String size;
+    public String color;
+    public String brand;
+    public String condition;//enum
+    public String status;//enum
 }

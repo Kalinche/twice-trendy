@@ -1,5 +1,7 @@
 package com.twicetrendy.TwiceTrendy.data;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
@@ -17,6 +19,7 @@ public class Product {
     @Column(name = "images")
     private String images;
 
+    @JsonIgnore //-> this helps when we getProductById but essentially doesn't return the userid
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userid")
     private User userid;
@@ -42,9 +45,14 @@ public class Product {
     @Column(name = "brand", length = 50)
     private String brand;
 
+    //TO DO:
+    //create enums for condition and status
+
+    //condition is 'Excellent', 'Very good', 'Good', 'Like new'
     @Column(name = "condition", length = 50)
     private String condition;
 
+    //we have product status - available/sold
     @Column(name = "status", length = 20)
     private String status;
 
@@ -53,6 +61,25 @@ public class Product {
 
     {
         orders = new LinkedHashSet<>();
+    }
+
+    public Product() {}
+
+    //we have both userId and author???
+    public Product(Integer id, String images, User userid, String name, String author, String description,
+                   double price, String size, String color, String brand, String condition) {
+        this.id = id;
+        this.images = images;
+        this.userid = userid;
+        this.name = name;
+        this.author = author;
+        this.description = description;
+        this.price = new BigDecimal(price);
+        this.size = size;
+        this.color = color;
+        this.brand = brand;
+        this.condition = condition;
+        this.status = "Available";//we have the product available by default when creating this ??(think of corner cases)
     }
 
     public Set<Order> getOrders() {
@@ -103,12 +130,12 @@ public class Product {
         this.size = size;
     }
 
-    public BigDecimal getPrice() {
-        return price;
+    public double getPrice() {
+        return price.doubleValue();
     }
 
-    public void setPrice(BigDecimal price) {
-        this.price = price;
+    public void setPrice(double price) {
+        this.price = new BigDecimal(price);
     }
 
     public String getDescription() {
