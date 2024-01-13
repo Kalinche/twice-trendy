@@ -11,9 +11,9 @@ function loadPage(url) {
 
 function loadNavbar() {
     const navbarPath =
-        localStorage.getItem('loggedIn') === 'true' ?
-            '/src/html/logged-in-navbar.html' :
-            '/src/html/logged-out-navbar.html';
+        // localStorage.getItem('loggedIn') === 'true' ?
+        '/src/html/logged-in-navbar.html';
+    // '/src/html/logged-out-navbar.html';
 
     const xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
@@ -27,7 +27,7 @@ function loadNavbar() {
 
 function navigate(path) {
     loadNavbar();
-    if (localStorage.getItem('loggedIn') === 'true') {
+    if (localStorage.getItem('loggedIn') !== 'true') {
         switch (path) {
             case '#/':
             case '#/registration':
