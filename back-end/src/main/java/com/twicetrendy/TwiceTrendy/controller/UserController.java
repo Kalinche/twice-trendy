@@ -21,23 +21,22 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Void> login(@RequestBody final UserDto user) {
-        User dbUser = this.userService.get(user.username, user.password);
+    public Integer login(@RequestBody final UserDto user) {
+        User dbUser = this.userService.get(user.email, user.password);
         if (dbUser != null) {
-            return new ResponseEntity<>(HttpStatus.OK);
+            return dbUser.getId();
         } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return -1;
         }
     }
 
     @PostMapping("/register")
-    public ResponseEntity<Void> register(@RequestBody final UserDto user) {
-        if (this.userService.findByUserId(user.id).isPresent()) {
-            return new ResponseEntity<>(HttpStatus.ALREADY_REPORTED);
+    public Integer register(@RequestBody final UserDto user) {
+        if (this.userService.findByEmail(user.email).isPresent()) {
+            return -1;
         } else {
-            this.userService.create(new User(user.username, user.email, user.address, user.phone, user.password));
+            return this.userService.create(new User(user.username, user.email, user.address, user.phone, user.password)).getId();
         }
-        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     //with requests the attributes' names should match the DTOs!!!

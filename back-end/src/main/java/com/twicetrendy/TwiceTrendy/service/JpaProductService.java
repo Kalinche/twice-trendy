@@ -1,8 +1,6 @@
 package com.twicetrendy.TwiceTrendy.service;
 
-import com.twicetrendy.TwiceTrendy.data.Order;
 import com.twicetrendy.TwiceTrendy.data.Product;
-import com.twicetrendy.TwiceTrendy.data.User;
 import com.twicetrendy.TwiceTrendy.repository.JpaProductRepository;
 import org.springframework.stereotype.Service;
 

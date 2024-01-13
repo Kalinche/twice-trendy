@@ -37,31 +37,26 @@ public class ProductController {
     //when saving products, currently we have to save with urls that are <=256 chars (need to update database)
     @PostMapping("/products")
     public ResponseEntity<Void> saveProduct(@RequestBody final ProductDto product) {
-        if (this.productService.findByProductId(product.id).isPresent()) {
-            return new ResponseEntity<>(HttpStatus.ALREADY_REPORTED);
-        } else {
-            //getting user that created the product by the userID
-            User dbUser = this.userService.get(product.userID);
-            if (dbUser == null) {
-                return new ResponseEntity<>(HttpStatus.ALREADY_REPORTED);//change https status but generally we
-                //should not be hitting this error because we will always pass the userId of the logged
-                //in user
-            }
-            productService.create(new Product(
-                    product.id,
-                    product.imagesURL,
-                    dbUser,
-                    product.name,
-                    product.author,
-                    product.description,
-                    product.price,
-                    product.size,
-                    product.color,
-                    product.brand,
-                    product.condition
-                    ));
-            return new ResponseEntity<>(HttpStatus.OK);
+        //getting user that created the product by the userID
+        User dbUser = this.userService.get(product.userID);
+        if (dbUser == null) {
+            return new ResponseEntity<>(HttpStatus.ALREADY_REPORTED);//change https status but generally we
+            //should not be hitting this error because we will always pass the userId of the logged
+            //in user
         }
+        productService.create(new Product(
+                product.imagesURL,
+                dbUser,
+                product.name,
+                product.author,
+                product.description,
+                product.price,
+                product.size,
+                product.color,
+                product.brand,
+                product.condition
+        ));
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 //{

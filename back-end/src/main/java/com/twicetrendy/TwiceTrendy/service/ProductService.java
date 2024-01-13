@@ -1,7 +1,6 @@
 package com.twicetrendy.TwiceTrendy.service;
 
 import com.twicetrendy.TwiceTrendy.data.Product;
-import com.twicetrendy.TwiceTrendy.data.User;
 
 import java.util.List;
 import java.util.Optional;

@@ -1,7 +1,6 @@
 package com.twicetrendy.TwiceTrendy.data;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
@@ -19,7 +18,7 @@ public class Product {
     @Column(name = "images")
     private String images;
 
-    @JsonIgnore //-> this helps when we getProductById but essentially doesn't return the userid
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userid")
     private User userid;
@@ -65,10 +64,9 @@ public class Product {
 
     public Product() {}
 
-    //we have both userId and author???
-    public Product(Integer id, String images, User userid, String name, String author, String description,
+    //we have both userId and author - name of the user created
+    public Product(String images, User userid, String name, String author, String description,
                    double price, String size, String color, String brand, String condition) {
-        this.id = id;
         this.images = images;
         this.userid = userid;
         this.name = name;
