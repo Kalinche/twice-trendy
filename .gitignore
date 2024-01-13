@@ -1,0 +1,5 @@
+# build output files
+target/
+
+# IntelliJ folder
+.idea
