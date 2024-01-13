@@ -1,6 +1,6 @@
-# Getting Started with [Your Fullstack Project Name]
+# Getting Started with Twice Trendy
 
-[Your Fullstack Project Name] is a fullstack application with a front-end utilizing Node.js and Express to create a Single Page Application (SPA), and a back-end built with Maven.
+Twice Trendy is a fullstack application with a front-end utilizing Node.js and Express to create a Single Page Application (SPA), and a back-end built with Maven.
 
 ## Prerequisites
 
@@ -14,7 +14,7 @@ Before starting the application, ensure you have the following installed:
 ### Back-End Setup
 
 1. **Navigate to the Back-End Directory**:
-cd path/to/backend
+cd back-end
 
 2. **Build the Maven Project**:
 Execute the following command to build the project:
@@ -24,7 +24,7 @@ This will compile the back-end code and generate the necessary files to run the 
 ### Front-End Setup
 
 1. **Navigate to the Front-End Directory**:
-cd path/to/frontend
+cd front-end
 
 2. **Install Node.js Dependencies**:
 Run the following command to install all necessary dependencies:
@@ -35,7 +35,7 @@ npm install
 ### Starting the Back-End Server
 
 1. **Navigate to the Back-End Directory** (if not already there):
-cd path/to/backend
+cd back-end
 
 2. **Start the Maven Project**:
 Use the following command to start the back-end server:
@@ -45,7 +45,7 @@ This will start the back-end service, typically running on a predefined port (e.
 ### Starting the Front-End Server
 
 1. **Navigate to the Front-End Directory** (if not already there):
-cd path/to/frontend
+cd front-end
 
 2. **Start the Node.js Server**:
 Run the following command to start the front-end server using `nodemon`:
