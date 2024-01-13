@@ -1,23 +1,23 @@
 document.addEventListener('DOMContentLoaded', function () {
-    fetch('https://localhost:8080/offers/')
+    fetch('https://localhost:8080/products/')
         .then(response => response.json())
         .then(data => {
-            const offersContainer = document.querySelector('.offers-container');
-            data.forEach(offer => {
-                const offerCard = document.createElement('div');
-                offerCard.className = 'offer-card';
+            const productsContainer = document.querySelector('.products-container');
+            data.forEach(product => {
+                const productCard = document.createElement('div');
+                productCard.className = 'product-card';
 
-                const offerImage = document.createElement('img');
-                offerImage.src = offer.imageUrl;
-                offerImage.alt = offer.name;
+                const productImage = document.createElement('img');
+                productImage.src = product.imageUrl;
+                productImage.alt = product.name;
 
-                const offerTitle = document.createElement('h3');
-                offerTitle.textContent = offer.name;
+                const productTitle = document.createElement('h3');
+                productTitle.textContent = product.name;
 
-                offerCard.appendChild(offerImage);
-                offerCard.appendChild(offerTitle);
+                productCard.appendChild(productImage);
+                productCard.appendChild(productTitle);
 
-                offersContainer.appendChild(offerCard);
+                productsContainer.appendChild(productCard);
             });
         })
         .catch(error => {
@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
 });
 
-function redirectToOfferDetails(offerId) {
+function redirectToproductDetails(productId) {
     //TODO: Променете URL адреса според структурата на вашето приложение
-    window.location.href = '/path-to-offer-details/' + offerId;
+    window.location.href = '/path-to-product-details/' + productId;
 }

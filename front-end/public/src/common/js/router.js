@@ -36,14 +36,14 @@ function navigate(path) {
             case '#/login':
                 window.location.href = '#/';
                 break;
-            case '#/offers':
-                loadPage('/src/products/html/offers-grid.html');
+            case '#/products':
+                loadPage('/src/products/html/products-grid.html');
                 break;
-            case '#/create-offer':
-                loadPage('/src/products/html/create-offer.html');
+            case '#/create-product':
+                loadPage('/src/products/html/create-product.html');
                 break;
-            // case '#/my-offers':
-            // loadPage('/src/products/html/my-offers.html');
+            // case '#/my-products':
+            // loadPage('/src/products/html/my-products.html');
             // break;
             // case '#/profile':
             //     if (localStorage.getItem('loggedIn') === 'true') {

@@ -1,4 +1,4 @@
-.offers-container {
+.products-container {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
@@ -6,7 +6,7 @@
     justify-content: center;
 }
 
-.offer-card {
+.product-card {
     background-color: #faf7f0;
     width: 200px;
     height: 300px;
@@ -21,13 +21,13 @@
     justify-content: space-around;
 }
 
-.offer-card img {
+.product-card img {
     width: 80%;
     height: 200px;
     object-fit: cover;
 }
 
-.offer-card h3 {
+.product-card h3 {
     padding: 10px;
     margin: 0;
     text-align: center;

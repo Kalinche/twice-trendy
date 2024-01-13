@@ -66,9 +66,9 @@ The application's front-end includes a dynamic navigation bar and supports vario
 - Home: #/
 - Registration: #/registration
 - Login: #/login
-- Offers: #/offers
-- Create Offer: #/create-offer
-- My Offers: #/my-offers
+- Products: #/products
+- Create Product: #/create-product
+- My Products: #/my-products
 - Profile: #/profile
 - Logout: #/logout
 
