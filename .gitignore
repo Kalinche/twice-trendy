@@ -1,4 +1,10 @@
-# Node.js dependencies
+# build output files
+target/
+
+# IntelliJ folder
+.idea# 
+
+#Node.js dependencies
 node_modules/
 
 # Environment variables

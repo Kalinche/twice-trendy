@@ -1,0 +1,56 @@
+CREATE TABLE Users (
+                       id INT,
+                       name VARCHAR(255),
+                       phone VARCHAR(15),
+                       address VARCHAR(255),
+                       email VARCHAR(255) UNIQUE,
+                       passwordHash VARCHAR(255),
+                       PRIMARY KEY(id)
+);
+
+CREATE TABLE Products (
+                          id INT,
+                          images VARCHAR(255), -- Assuming a list of URLs will be stored as a comma-separated string
+                          userId INT,
+                          name VARCHAR(255),
+                          author VARCHAR(255),
+                          description VARCHAR(255),
+                          price DECIMAL(10, 2),
+                          size VARCHAR(50),
+                          color VARCHAR(50),
+                          brand VARCHAR(50),
+                          condition VARCHAR(50) CHECK (condition IN ('Excellent', 'Very good', 'Good', 'Like new')),
+                          status VARCHAR(20) CHECK (status IN ('Available', 'Sold')),
+                          PRIMARY KEY(id),
+                          CONSTRAINT FK_Products_Users  FOREIGN KEY (userId) REFERENCES Users(id));
+
+CREATE TABLE Orders(
+                       id INT,
+                       userId INT,
+                       productId INT,
+                       address VARCHAR(255),
+                       PRIMARY KEY(id),
+                       CONSTRAINT FK_Orders_User FOREIGN KEY (userId) REFERENCES Users(id),
+                       CONSTRAINT FK_Orders_Product FOREIGN KEY (productId) REFERENCES Products(id));
+
+create sequence users_id_seq
+	as integer;
+
+alter table users alter column id set default nextval('public.users_id_seq'::regclass);
+
+alter sequence users_id_seq owned by users.id;
+
+create sequence products_id_seq
+	as integer;
+
+alter table products alter column id set default nextval('public.products_id_seq'::regclass);
+
+alter sequence products_id_seq owned by products.id;
+
+create sequence orders_id_seq
+	as integer;
+
+alter table orders alter column id set default nextval('public.orders_id_seq'::regclass);
+
+alter sequence orders_id_seq owned by orders.id;
+
