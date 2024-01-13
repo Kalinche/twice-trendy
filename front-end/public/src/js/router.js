@@ -50,6 +50,9 @@ function navigate(path) {
             //     // Пренасочете към страница за вход или началната страница
             //     loadPage('/src/html/login.html');
             // }
+            case '#/delete-profile':
+                loadPage('/src/html/delete-profile.html');
+                break;
             case '#/logout':
                 loadPage('/src/html/logout.html');
                 break;

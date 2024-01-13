@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
     if (localStorage.getItem('loggedIn') === 'true') {
-        window.location.href = 'index.html';
+        window.location.href = '#/';
     }
 
     // Връзка към формата за регистрация
@@ -93,7 +93,7 @@ function register(email, password, phoneNumber, address) {
             })
             .then(data => {
                 console.log('Успешна регистрация:', data);
-                window.location.href = '../html/login.html';
+                window.location.href = '#/login';
             })
             .catch(error => {
                 console.error('Грешка при регистрация:', error.message);

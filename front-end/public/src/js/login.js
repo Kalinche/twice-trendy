@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
     if (localStorage.getItem('loggedIn') === 'true') {
-        window.location.href = 'index.html';
+        window.location.href = '#/';
     }
 
     // Връзка към формата за вход
@@ -64,7 +64,7 @@ function login(email, password) {
         .then(data => {
             console.log('Успешен вход:', data);
             localStorage.setItem('loggedIn', true);
-            window.location.href = '../html/index.html';
+            window.location.href = '#/';
         })
         .catch(error => {
             console.error('Грешка при вход:', error.message);
