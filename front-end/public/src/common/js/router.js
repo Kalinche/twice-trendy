@@ -12,8 +12,8 @@ function loadPage(url) {
 function loadNavbar() {
     const navbarPath =
         // localStorage.getItem('loggedIn') === 'true' ?
-        '/src/html/logged-in-navbar.html';
-    // '/src/html/logged-out-navbar.html';
+        '/src/common/html/logged-in-navbar.html';
+    // '/src/common/html/logged-out-navbar.html';
 
     const xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
@@ -30,45 +30,47 @@ function navigate(path) {
     if (localStorage.getItem('loggedIn') !== 'true') {
         switch (path) {
             case '#/':
+                loadPage('/src/common/html/logged-in-index.html');
+                break;
             case '#/registration':
             case '#/login':
-                loadPage('/src/html/logged-in-index.html');
+                window.location.href = '#/';
                 break;
             case '#/offers':
-                loadPage('/src/html/offers-grid.html');
+                loadPage('/src/products/html/offers-grid.html');
                 break;
             case '#/create-offer':
-                loadPage('/src/html/create-offer.html');
+                loadPage('/src/products/html/create-offer.html');
                 break;
             // case '#/my-offers':
-            // loadPage('/src/html/my-offers.html');
+            // loadPage('/src/products/html/my-offers.html');
             // break;
             // case '#/profile':
             //     if (localStorage.getItem('loggedIn') === 'true') {
-            //     loadPage('/src/html/profile.html');
+            //     loadPage('/src/products/html/profile.html');
             // } else {
             //     // Пренасочете към страница за вход или началната страница
-            //     loadPage('/src/html/login.html');
+            //     loadPage('/src/products/html/login.html');
             // }
             case '#/delete-profile':
-                loadPage('/src/html/delete-profile.html');
+                loadPage('/src/authentication/html/delete-profile.html');
                 break;
             case '#/logout':
-                loadPage('/src/html/logout.html');
+                loadPage('/src/authentication/html/logout.html');
                 break;
             default:
-                loadPage('/src/html/not-found.html');
+                loadPage('/src/common/html/not-found.html');
         }
     } else {
         switch (path) {
             case '#/registration':
-                loadPage('/src/html/registration.html');
+                loadPage('/src/authentication/html/registration.html');
                 break;
             case '#/login':
-                loadPage('/src/html/login.html');
+                loadPage('/src/authentication/html/login.html');
                 break;
             default:
-                loadPage('/src/html/logged-out-index.html');
+                loadPage('/src/common/html/logged-out-index.html');
         }
     }
 }

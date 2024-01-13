@@ -8,7 +8,7 @@ app.use(express.static('public'));
 
 // Catch all routes and redirect to index.html
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public\\src\\html', 'index.html'));
+    res.sendFile(path.join(__dirname, 'public\\src\\common\\html', 'index.html'));
 });
 
 app.listen(port, () => {

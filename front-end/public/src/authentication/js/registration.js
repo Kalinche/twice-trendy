@@ -16,8 +16,6 @@ document.addEventListener('DOMContentLoaded', function () {
         var confirmPassword = document.getElementById('confirmPassword').value;
         var phoneNumber = document.getElementById('phoneNumber').value;
         var address = document.getElementById('address').value;
-        var phoneNumber = document.getElementById('phoneNumber').value;
-        var address = document.getElementById('address').value;
 
         // Валидация на входните данни
         if (!validateEmail(email)) {
@@ -40,13 +38,7 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
-        if (!phoneNumber) {
-            alert('Моля, въведете телефонен номер.');
-            return;
-        }
-
         // Изпращане на заявка за регистрация към сървъра
-        register(email, password, phoneNumber, address);
         register(email, password, phoneNumber, address);
     };
 });
@@ -68,18 +60,13 @@ function register(email, password, phoneNumber, address) {
             email: email,
             password: password,
             phoneNumber: phoneNumber,
-            address: address,
-            password: password,
-            phoneNumber: phoneNumber,
             address: address
         };
 
         fetch(registerUrl, {
             method: 'POST',
-            method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Content-Type': 'application/json'
             },
             body: JSON.stringify(data)
         })
