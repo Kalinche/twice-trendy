@@ -6,9 +6,9 @@ VALUES
 
 	INSERT INTO Products (userId, images, name, author, description, price, size, color, brand, condition, status)
 VALUES
-    ( 1, 'https://n.nordstrommedia.com/id/sr3/dca7f0df-97da-47b4-aba2-441f40775eae.jpeg?h=365&w=240&dpr=2', 'Blouse', 'Kalina', 'Blue summer blouse with long sleeves ', 49.99, 'Medium', 'Blue', 'Nordstrom', 'Excellent', 'Available'),
-    ( 2, 'https://assets.adidas.com/images/w_600,f_auto,q_auto/e766aa2bf8ef4cabb933a920011690b4_9366/Tastigo_19_Shorts_Red_DP3683_01_laydown.jpg', 'Red Shorts', 'Jane', 'Red sport shorts', 29.99, 'Large', 'Red', 'Adidas', 'Very good', 'Sold'),
-    ( 3, 'https://cdn-img.prettylittlething.com/5/f/d/f/5fdf80dee04abedc8c67777f263d9dbebae7e93b_cmt2903_5.jpg', 'Green pants', 'Author ', 'Summer green pants', 39.99, 'Small', 'Green', 'PrettyLittleThing', 'Good', 'Available');
+    ( 1, 'https://n.nordstrommedia.com/id/sr3/dca7f0df-97da-47b4-aba2-441f40775eae.jpeg?h=365&w=240&dpr=2', 'Blouse', 'Blue summer blouse with long sleeves ', 49.99, 'Medium', 'Blue', 'Nordstrom', 'New', 'Available'),
+    ( 2, 'https://assets.adidas.com/images/w_600,f_auto,q_auto/e766aa2bf8ef4cabb933a920011690b4_9366/Tastigo_19_Shorts_Red_DP3683_01_laydown.jpg', 'Red Shorts', 'Red sport shorts', 29.99, 'Large', 'Red', 'Adidas', 'Used', 'Sold'),
+    ( 3, 'https://cdn-img.prettylittlething.com/5/f/d/f/5fdf80dee04abedc8c67777f263d9dbebae7e93b_cmt2903_5.jpg', 'Green pants', 'Summer green pants', 39.99, 'Small', 'Green', 'PrettyLittleThing', 'New', 'Available');
 
 	INSERT INTO Orders (id, userId, productId, address)
 VALUES
