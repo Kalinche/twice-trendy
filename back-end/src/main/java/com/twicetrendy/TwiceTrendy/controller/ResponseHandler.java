@@ -28,7 +28,6 @@ public class ResponseHandler {
     public static ResponseEntity<Object> generateResponseForLogIn(String message, HttpStatus status, Object responseObj) {
         Map<String, Object> map = new HashMap<>();
         map.put("message", message);
-        map.put("status", status.value());
         map.put("userId", responseObj);
 
         return new ResponseEntity<>(map,status);
@@ -37,7 +36,6 @@ public class ResponseHandler {
     public static ResponseEntity<Object> generateResponseWithData(String message, HttpStatus status, Object responseObj) {
         Map<String, Object> map = new HashMap<>();
         map.put("message", message);
-        map.put("status", status.value());
         map.put("data", responseObj);
 
         return new ResponseEntity<>(map,status);
@@ -46,7 +44,6 @@ public class ResponseHandler {
     public static ResponseEntity<Object> generateGeneralResponse(String message, HttpStatus status) {
         Map<String, Object> map = new HashMap<>();
         map.put("message", message);
-        map.put("status", status.value());
 
         return new ResponseEntity<>(map,status);
     }

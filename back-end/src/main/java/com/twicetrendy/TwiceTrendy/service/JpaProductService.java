@@ -5,7 +5,6 @@ import com.twicetrendy.TwiceTrendy.repository.JpaProductRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class JpaProductService implements ProductService {
@@ -40,15 +39,11 @@ public class JpaProductService implements ProductService {
 
     @Override
     public void delete(int id) {
+        jpaProductRepository.deleteById(id);
     }
 
-    @Override
-    public void saveAll(List<Product> products) {
-
-    }
-
-    @Override
-    public Optional<Product> findByProductId(int id) {
-        return jpaProductRepository.findById(id);
-    }
+//    @Override
+//    public Optional<Product> findByProductId(int id) {
+//        return jpaProductRepository.findById(id);
+//    }
 }

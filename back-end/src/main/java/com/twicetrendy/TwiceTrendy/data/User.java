@@ -28,10 +28,10 @@ public class User {
     @Column(name = "passwordhash")
     private String passwordhash;
 
-    @OneToMany(mappedBy = "userid")
+    @OneToMany(mappedBy = "userid", cascade = CascadeType.ALL)
     private Set<Product> products = new LinkedHashSet<>();
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private Set<Order> orders;
 
     {

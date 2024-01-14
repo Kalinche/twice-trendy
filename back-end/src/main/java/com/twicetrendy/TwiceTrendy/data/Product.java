@@ -26,9 +26,6 @@ public class Product {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "author")
-    private String author;
-
     @Column(name = "description")
     private String description;
 
@@ -47,7 +44,7 @@ public class Product {
     //TO DO:
     //create enums for condition and status
 
-    //condition is 'Excellent', 'Very good', 'Good', 'Like new'
+    //condition is 'New', 'Used'
     @Column(name = "condition", length = 50)
     private String condition;
 
@@ -55,7 +52,7 @@ public class Product {
     @Column(name = "status", length = 20)
     private String status;
 
-    @OneToMany(mappedBy = "product")
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private Set<Order> orders;
 
     {
@@ -65,12 +62,11 @@ public class Product {
     public Product() {}
 
     //we have both userId and author - name of the user created
-    public Product(String images, User userid, String name, String author, String description,
+    public Product(String images, User userid, String name, String description,
                    double price, String size, String color, String brand, String condition) {
         this.images = images;
         this.userid = userid;
         this.name = name;
-        this.author = author;
         this.description = description;
         this.price = new BigDecimal(price);
         this.size = size;
@@ -142,14 +138,6 @@ public class Product {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public String getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
     }
 
     public String getName() {

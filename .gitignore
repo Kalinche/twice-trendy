@@ -2,7 +2,7 @@
 target/
 
 # IntelliJ folder
-.idea# 
+.idea#
 
 #Node.js dependencies
 node_modules/
@@ -49,3 +49,7 @@ jspm_packages/
 # dotenv environment variable files
 .env.*
 !.env.example
+
+application.properties
+
+HELP.md

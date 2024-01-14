@@ -16,5 +16,7 @@ public interface OrderService {
 
     void delete(int id);
 
+    //void deleteAllOrdersWithUserId(int userId);
+
     Optional<Order> getOrderByProductAndUserId(int productId, int userId);
 }
