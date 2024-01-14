@@ -4,14 +4,14 @@ VALUES
     ( 'Jane Smith', '987654321', '456 Oak St', 'jane.smith@mail.com', 'aqswdefrtg'),
     ( 'Bob Johnson', '555111222', '789 Pine St', 'bob.johnson@mail.com', 'zdrfvghyuj2f');
 
-	INSERT INTO Products (userId, images, name, author, description, price, size, color, brand, condition, status)
+	INSERT INTO Products (userId, images, name, description, price, size, color, brand, condition, status)
 VALUES
-    ( 1, 'https://n.nordstrommedia.com/id/sr3/dca7f0df-97da-47b4-aba2-441f40775eae.jpeg?h=365&w=240&dpr=2', 'Blouse', 'Blue summer blouse with long sleeves ', 49.99, 'Medium', 'Blue', 'Nordstrom', 'New', 'Available'),
-    ( 2, 'https://assets.adidas.com/images/w_600,f_auto,q_auto/e766aa2bf8ef4cabb933a920011690b4_9366/Tastigo_19_Shorts_Red_DP3683_01_laydown.jpg', 'Red Shorts', 'Red sport shorts', 29.99, 'Large', 'Red', 'Adidas', 'Used', 'Sold'),
-    ( 3, 'https://cdn-img.prettylittlething.com/5/f/d/f/5fdf80dee04abedc8c67777f263d9dbebae7e93b_cmt2903_5.jpg', 'Green pants', 'Summer green pants', 39.99, 'Small', 'Green', 'PrettyLittleThing', 'New', 'Available');
+    ( 1, 'https://n.nordstrommedia.com/id/sr3/dca7f0df-97da-47b4-aba2-441f40775eae.jpeg?h=365&w=240&dpr=2', 'Блуза', 'Blue summer blouse with long sleeves ', 49.99, 'Medium', 'Blue', 'Nordstrom', 'New', 'Available'),
+    ( 2, 'https://assets.adidas.com/images/w_600,f_auto,q_auto/e766aa2bf8ef4cabb933a920011690b4_9366/Tastigo_19_Shorts_Red_DP3683_01_laydown.jpg', 'Червени шорти', 'Red sport shorts', 29.99, 'Large', 'Red', 'Adidas', 'Used', 'Sold'),
+    ( 3, 'https://cdn-img.prettylittlething.com/5/f/d/f/5fdf80dee04abedc8c67777f263d9dbebae7e93b_cmt2903_5.jpg', 'Green pants', 'Летен зелен панталон', 39.99, 'Small', 'Green', 'PrettyLittleThing', 'New', 'Available');
 
-	INSERT INTO Orders (id, userId, productId, address)
+	INSERT INTO Orders (userId, productId, address)
 VALUES
-    (201, 1, 101, 'Sofia,Bul. Vasil Levski 23B'),
-    (202, 2, 102, 'Burgas,ul. Shipka 13'),
-    (203, 3, 103, 'Sofia, Studentski grad blok 60');
+    (1, 1, 'Sofia,Bul. Vasil Levski 23B'),
+    (2, 2, 'Burgas,ul. Shipka 13'),
+    (3, 3, 'Sofia, Studentski grad blok 60');
