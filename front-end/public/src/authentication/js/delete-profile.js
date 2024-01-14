@@ -1,4 +1,4 @@
-export function loadDeleteProfileButton() {
+export function setupDeleteProfileButton() {
     document.getElementById('deleteProfileBtn').addEventListener('click', function () {
         const confirmed = confirm('Сигурни ли сте, че искате да изтриете вашия профил?');
 

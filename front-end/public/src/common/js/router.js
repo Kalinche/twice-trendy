@@ -1,8 +1,9 @@
 import { setupLoginForm } from "../../authentication/js/login.js";
-import { loadLogoutButton } from "../../authentication/js/logout.js";
-import { loadDeleteProfileButton } from "../../authentication/js/delete-profile.js";
+import { setupLogoutButton } from "../../authentication/js/logout.js";
+import { setupDeleteProfileButton } from "../../authentication/js/delete-profile.js";
 import { setupRegistrationForm } from "../../authentication/js/registration.js";
-import { loadProductsGrid } from "../../products/js/products-grid.js";
+import { setupProductsGrid } from "../../products/js/products-grid.js";
+import { setupCreateProductForm } from "../../products/js/create-product.js";
 
 function loadPage(url) {
     return new Promise((resolve, reject) => {
@@ -58,11 +59,14 @@ function navigate(path) {
             case '#/products':
                 loadPage('/src/products/html/products-grid.html')
                     .then(() => {
-                        loadProductsGrid();
+                        setupProductsGrid();
                     });
                 break;
             case '#/create-product':
-                loadPage('/src/products/html/create-product.html');
+                loadPage('/src/products/html/create-product.html')
+                    .then(() => {
+                        setupCreateProductForm();
+                    });
                 break;
             // case '#/my-products':
             // loadPage('/src/products/html/my-products.html');
@@ -77,13 +81,13 @@ function navigate(path) {
             case '#/delete-profile':
                 loadPage('/src/authentication/html/delete-profile.html')
                     .then(() => {
-                        loadDeleteProfileButton();
+                        setupDeleteProfileButton();
                     });
                 break;
             case '#/logout':
                 loadPage('/src/authentication/html/logout.html')
                     .then(() => {
-                        loadLogoutButton();
+                        setupLogoutButton();
                     });
                 break;
             default:

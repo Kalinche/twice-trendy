@@ -1,4 +1,4 @@
-export function loadProductsGrid() {
+export function setupProductsGrid() {
     fetch('http://localhost:8080/products')
         .then(response => {
             if (response.status == 404) {
