@@ -2,6 +2,7 @@ import { setupLoginForm } from "../../authentication/js/login.js";
 import { loadLogoutButton } from "../../authentication/js/logout.js";
 import { loadDeleteProfileButton } from "../../authentication/js/delete-profile.js";
 import { setupRegistrationForm } from "../../authentication/js/registration.js";
+import { loadProductsGrid } from "../../products/js/products-grid.js";
 
 function loadPage(url) {
     return new Promise((resolve, reject) => {
@@ -55,7 +56,10 @@ function navigate(path) {
                 window.location.href = '#/';
                 break;
             case '#/products':
-                loadPage('/src/products/html/products-grid.html');
+                loadPage('/src/products/html/products-grid.html')
+                    .then(() => {
+                        loadProductsGrid();
+                    });
                 break;
             case '#/create-product':
                 loadPage('/src/products/html/create-product.html');
@@ -71,9 +75,10 @@ function navigate(path) {
             //     loadPage('/src/products/html/login.html');
             // }
             case '#/delete-profile':
-                loadPage('/src/authentication/html/delete-profile.html').then(() => {
-                    loadDeleteProfileButton();
-                });
+                loadPage('/src/authentication/html/delete-profile.html')
+                    .then(() => {
+                        loadDeleteProfileButton();
+                    });
                 break;
             case '#/logout':
                 loadPage('/src/authentication/html/logout.html')
