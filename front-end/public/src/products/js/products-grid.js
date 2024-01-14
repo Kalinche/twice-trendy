@@ -1,5 +1,16 @@
-export function setupProductsGrid() {
-    fetch('http://localhost:8080/products')
+export function setupProductsGrid(userId) {
+    var productsPromise;
+    if (userId) {
+        productsPromise = fetchUsersProducts(userId);
+    } else {
+        productsPromise = fetchAllProducts();
+    }
+
+    buildGrid(productsPromise);
+};
+
+function fetchAllProducts() {
+    return fetch('http://localhost:8080/products')
         .then(response => {
             if (response.status == 404) {
                 throw new Error("Няма намерени продукти.");
@@ -9,9 +20,27 @@ export function setupProductsGrid() {
             }
             return response.json();
         })
+}
+
+function fetchUsersProducts(userId) {
+    return fetch(`http://localhost:8080/products/user/${userId}`)
+        .then(response => {
+            if (response.status == 404) {
+                throw new Error("Няма намерени продукти.");
+            }
+            else if (!response.ok) {
+                throw new Error(response.statusText);
+            }
+            return response.json();
+        })
+}
+
+function buildGrid(productsPromise) {
+    productsPromise
         .then(body => {
             const data = body.data;
             if (!Array.isArray(data)) {
+                console.log(data);
                 throw new Error("Получените данни не са в правилен формат.");
             }
 
@@ -38,7 +67,7 @@ export function setupProductsGrid() {
             console.error('Грешка при зареждане на продуктите:', error.message);
             alert('Грешка при зареждане на продуктите: ' + error.message);
         });
-};
+}
 
 function redirectToProductDetails(productId) {
     //TODO: Променете URL адреса според структурата на вашето приложение

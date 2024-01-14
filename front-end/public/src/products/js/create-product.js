@@ -9,7 +9,7 @@ export function setupCreateProductForm() {
         e.preventDefault();
 
         var formData = {
-            userId: parseInt(localStorage.getItem('userID')),
+            userId: parseInt(localStorage.getItem('userId')),
             name: document.getElementById('name').value,
             imagesURL: document.getElementById('images').value,
             description: document.getElementById('description').value,

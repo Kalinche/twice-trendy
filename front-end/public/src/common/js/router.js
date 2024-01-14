@@ -1,8 +1,10 @@
+import { setupUrlsWithIds } from "./logged-in-navbar.js";
 import { setupLoginForm } from "../../authentication/js/login.js";
 import { setupLogoutButton } from "../../authentication/js/logout.js";
 import { setupDeleteProfileButton } from "../../authentication/js/delete-profile.js";
 import { setupRegistrationForm } from "../../authentication/js/registration.js";
 import { setupProductsGrid } from "../../products/js/products-grid.js";
+// import { setupUserProductsPage } from "../../products/js/user-products-grid.js";
 import { setupCreateProductForm } from "../../products/js/create-product.js";
 
 function loadPage(url) {
@@ -29,26 +31,40 @@ function loadNavbar() {
             '/src/common/html/logged-in-navbar.html' :
             '/src/common/html/logged-out-navbar.html';
 
-    const xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-            document.querySelector(".navbar").innerHTML = this.responseText;
-        }
-    };
-    xhttp.open("GET", navbarPath, true);
-    xhttp.send();
+    new Promise((resolve, reject) => {
+        const xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4) {
+                if (this.status == 200) {
+                    document.querySelector(".navbar").innerHTML = this.responseText;
+                    resolve();
+                } else {
+                    reject('Страницата не може да бъде заредена');
+                }
+            }
+        };
+        xhttp.open("GET", navbarPath, true);
+        xhttp.send();
+    })
+        .then(() => {
+            setupUrlsWithIds();
+        });
 }
 
-function loadScript(scriptUrl) {
-    const script = document.createElement('script');
-    script.src = scriptUrl;
-    document.body.appendChild(script);
+function parseUrl(url) {
+    const parts = url.split('/');
+    return {
+        path: parts[0] + "/" + parts[1],
+        id: parts[2] || null
+    };
 }
 
 function navigate(path) {
-    loadNavbar();
+    const { path: basePath, id } = parseUrl(path);
+    loadNavbar()
+
     if (localStorage.getItem('loggedIn') === 'true') {
-        switch (path) {
+        switch (basePath) {
             case '#/':
                 loadPage('/src/common/html/logged-in-index.html');
                 break;
@@ -59,7 +75,7 @@ function navigate(path) {
             case '#/products':
                 loadPage('/src/products/html/products-grid.html')
                     .then(() => {
-                        setupProductsGrid();
+                        setupProductsGrid(id);
                     });
                 break;
             case '#/create-product':
