@@ -7,7 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
+import static com.twicetrendy.TwiceTrendy.controller.ResponseHandler.*;
 
 @RestController
 @CrossOrigin
@@ -21,21 +21,22 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public Integer login(@RequestBody final UserDto user) {
+    public ResponseEntity<Object> login(@RequestBody final UserDto user) {
         User dbUser = this.userService.get(user.email, user.password);
         if (dbUser != null) {
-            return dbUser.getId();
+            return generateResponseForLogIn("Successful log in", HttpStatus.OK, dbUser.getId());
         } else {
-            return -1;
+            return generateGeneralResponse("There is no such user", HttpStatus.BAD_REQUEST);
         }
     }
 
     @PostMapping("/register")
-    public Integer register(@RequestBody final UserDto user) {
+    public ResponseEntity<Object> register(@RequestBody final UserDto user) {
         if (this.userService.findByEmail(user.email).isPresent()) {
-            return -1;
+            return handleNotAcceptable("This email has already been registered");
         } else {
-            return this.userService.create(new User(user.username, user.email, user.address, user.phone, user.password)).getId();
+            this.userService.create(new User(user.username, user.email, user.address, user.phone, user.password));
+            return generateGeneralResponse("Successful registration", HttpStatus.OK);
         }
     }
 
@@ -51,8 +52,8 @@ public class UserController {
 //        "password": "23g2"
 //    }
 
-    @DeleteMapping("users/{userId}")
-    public ResponseEntity<Void> delete(@PathVariable final Integer id) throws IOException {
+    @DeleteMapping("/users/{id}")
+    public ResponseEntity<Void> delete(@PathVariable final Integer id) {
         this.userService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

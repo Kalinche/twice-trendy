@@ -1,24 +1,38 @@
 package com.twicetrendy.TwiceTrendy.data;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "orders")
 public class Order {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userid")
-    private User userid;
+    private User user;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "productid")
-    private Product productid;
+    private Product product;
 
     @Column(name = "address")
     private String address;
+
+    public Order(User user, Product product, String address) {
+        this.user = user;
+        this.product = product;
+        this.address = address;
+    }
+
+    public Order() {
+
+    }
 
     public String getAddress() {
         return address;
@@ -28,20 +42,20 @@ public class Order {
         this.address = address;
     }
 
-    public Product getProductid() {
-        return productid;
+    public Product getProduct() {
+        return product;
     }
 
-    public void setProductid(Product productid) {
-        this.productid = productid;
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
-    public User getUserid() {
-        return userid;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserid(User userid) {
-        this.userid = userid;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Integer getId() {

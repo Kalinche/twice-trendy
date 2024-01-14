@@ -55,7 +55,7 @@ public class Product {
     @Column(name = "status", length = 20)
     private String status;
 
-    @OneToMany(mappedBy = "productid")
+    @OneToMany(mappedBy = "product")
     private Set<Order> orders;
 
     {
