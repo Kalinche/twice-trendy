@@ -1,8 +1,8 @@
 package com.twicetrendy.TwiceTrendy.dto;
 
 public class OrderDto {
-    public int userid;
-    public int productid;
+    public int userId;
+    public int productId;
     public String address;
 
 }

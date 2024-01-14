@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 import static com.twicetrendy.TwiceTrendy.controller.ResponseHandler.*;
+import static org.springframework.http.HttpStatus.UNAUTHORIZED;
 
 @RestController
 @CrossOrigin
@@ -50,9 +51,9 @@ public class ProductController {
     @PostMapping("/products")
     public ResponseEntity<Object> saveProduct(@RequestBody final ProductDto product) {
         //getting user that created the product by the userID
-        User dbUser = this.userService.get(product.userID);
+        User dbUser = this.userService.get(product.userId);
         if (dbUser == null) {
-            return handleNotAcceptable("User isn't registered in the database");
+            return generateGeneralResponse("User isn't registered in the database", UNAUTHORIZED);
         }
         Product newProduct = new Product(
                 product.imagesURL,
@@ -71,18 +72,15 @@ public class ProductController {
     }
 
 //{
-//    "id": 97,
 //    "imagesURL": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fbillyj.com.au%2Fproducts%2Fsunny-daze-dress-black&psig=AOvVaw3WObtzambMioUS0zHsFove&ust=1705173933840000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCLDLkofK2IMDFQAAAAAdAAAAABAI",
 //    "name": "dress",
-//    "userID": 5,
-//    "author": "John Smith",
+//    "userId": 5,
 //    "description": "pretty dress",
 //    "price": 1,
 //    "size": "XS",
 //    "color": "black",
 //    "brand": "Shein",
-//    "condition": "Like new",
-//    "status": "Available"
+//    "condition": "Like new"
 //}
 
     @DeleteMapping("/products/{id}")

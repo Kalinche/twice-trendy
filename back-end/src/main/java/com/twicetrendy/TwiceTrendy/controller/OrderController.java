@@ -55,13 +55,13 @@ public class OrderController {
 
     @PostMapping("/order")
     public ResponseEntity<Object> create(@RequestBody final OrderDto order) throws IOException {
-        if (orderService.getOrderByProductAndUserId(order.productid, order.userid).isPresent()) {
+        if (orderService.getOrderByProductAndUserId(order.productId, order.userId).isPresent()) {
             return handleNotAcceptable("There is already such an order");
         }
         //find user by userid
-        User user = userService.get(order.userid);
+        User user = userService.get(order.userId);
         //find product by productid
-        Product product = productService.get(order.productid);
+        Product product = productService.get(order.productId);
 
         Order createdOrder = orderService.create(new Order(user, product, order.address));
 
@@ -70,8 +70,8 @@ public class OrderController {
 
 //order request:
 //{
-//    "userid": 2,
-//    "productid": 2,
+//    "userId": 2,
+//    "productId": 2,
 //    "address": "Kumata 87, Sofia"
 //}
 
