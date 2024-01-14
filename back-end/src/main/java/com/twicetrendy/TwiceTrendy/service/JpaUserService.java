@@ -4,13 +4,12 @@ import com.twicetrendy.TwiceTrendy.data.User;
 import com.twicetrendy.TwiceTrendy.repository.JpaUserRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
 public class JpaUserService implements UserService {
 
-    private JpaUserRepository jpaUserRepository;
+    private final JpaUserRepository jpaUserRepository;
 
     public JpaUserService(JpaUserRepository jpaUserRepository) {
         this.jpaUserRepository = jpaUserRepository;
@@ -20,17 +19,15 @@ public class JpaUserService implements UserService {
     @Override
     public User get(int id) {
         Optional<User> tag = jpaUserRepository.findById(id);
-        if (tag.isPresent()) {
-            return tag.get();
-        }
-        throw new NoSuchElementException(
-                "User with ID: " + id + " was not found!");
+        //throw an exception and then catch it in the controller
+        return tag.orElse(null);//this returns null if user is not present
     }
 
     //get a user via its name
     @Override
     public User get(String email, String password) {
         Optional<User> user = jpaUserRepository.findByEmailAndPasswordhash(email, password);
+        //check if Optional<User> user is present
         return user.get();
     }
 

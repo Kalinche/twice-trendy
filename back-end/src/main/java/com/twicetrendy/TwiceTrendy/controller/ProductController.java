@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static com.twicetrendy.TwiceTrendy.controller.ResponseHandler.*;
+
 @RestController
 @CrossOrigin
 @RequestMapping(value = "")
@@ -24,27 +26,35 @@ public class ProductController {
     }
 
     @GetMapping("/products/{id}")
-    public Product getProductById(@PathVariable final Integer id) {
-        return productService.get(id);
+    public ResponseEntity<Object> getProductById(@PathVariable final Integer id) {
+        Product dbProduct = productService.get(id);
+        if (dbProduct != null) {
+            return generateResponseWithData("Product was found successfully", HttpStatus.OK, dbProduct);
+        } else {
+            return handleNotFound("There is no product with such id");
+        }
     }
 
-    @GetMapping("/products")//ako imame /products/ ne raboti i vrushta 404 otne mi 1383 godini da se setq
-    public List<Product> getProducts() {
-        return productService.getAll();
+    @GetMapping("/products")
+    public ResponseEntity<Object> getProducts() {
+        List<Product> dbProducts = productService.getAll();
+        if (dbProducts.isEmpty()) {
+            return handleNotFound("There are no products saved");
+        } else {
+            return generateResponseWithData("Products were found successfully", HttpStatus.OK, dbProducts);
+        }
     }
 
     //TO DO
     //when saving products, currently we have to save with urls that are <=256 chars (need to update database)
     @PostMapping("/products")
-    public ResponseEntity<Void> saveProduct(@RequestBody final ProductDto product) {
+    public ResponseEntity<Object> saveProduct(@RequestBody final ProductDto product) {
         //getting user that created the product by the userID
         User dbUser = this.userService.get(product.userID);
         if (dbUser == null) {
-            return new ResponseEntity<>(HttpStatus.ALREADY_REPORTED);//change https status but generally we
-            //should not be hitting this error because we will always pass the userId of the logged
-            //in user
+            return handleNotAcceptable("User isn't registered in the database");
         }
-        productService.create(new Product(
+        Product newProduct = new Product(
                 product.imagesURL,
                 dbUser,
                 product.name,
@@ -55,8 +65,10 @@ public class ProductController {
                 product.color,
                 product.brand,
                 product.condition
-        ));
-        return new ResponseEntity<>(HttpStatus.OK);
+        );
+        //check if this product is already saved in the db
+        productService.create(newProduct);
+        return generateResponseWithData("Product was saved successfully", HttpStatus.OK, newProduct.getId());
     }
 
 //{

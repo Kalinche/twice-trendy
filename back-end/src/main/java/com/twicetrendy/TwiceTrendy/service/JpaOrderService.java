@@ -5,13 +5,12 @@ import com.twicetrendy.TwiceTrendy.repository.JpaOrderRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
 public class JpaOrderService implements OrderService {
 
-    private JpaOrderRepository repository;
+    private final JpaOrderRepository repository;
 
     public JpaOrderService(JpaOrderRepository repository) {
         this.repository = repository;
@@ -24,15 +23,8 @@ public class JpaOrderService implements OrderService {
         if (order.isPresent()) {
             return order.get();
         }
-        throw new NoSuchElementException(
-                "Order with ID: " + id + " was not found!");
+        return null;//or throw an exception and then catch it
     }
-
-    //get an image by url
-//    @Override
-//    public Optional<Offer> get(String url) {
-//        return repository.findByUrl(url);
-//    }
 
     //create a new order
     @Override
@@ -72,5 +64,10 @@ public class JpaOrderService implements OrderService {
     @Override
     public void delete(int id) {
         repository.deleteById(id);
+    }
+
+    @Override
+    public Optional<Order> getOrderByProductAndUserId(int productId, int userId) {
+        return repository.findOrderByProductIdAndUserId(productId, userId);
     }
 }

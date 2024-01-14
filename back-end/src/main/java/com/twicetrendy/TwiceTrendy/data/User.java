@@ -31,7 +31,7 @@ public class User {
     @OneToMany(mappedBy = "userid")
     private Set<Product> products = new LinkedHashSet<>();
 
-    @OneToMany(mappedBy = "userid")
+    @OneToMany(mappedBy = "user")
     private Set<Order> orders;
 
     {
