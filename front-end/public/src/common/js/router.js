@@ -1,19 +1,30 @@
+import { setupLoginForm } from "../../authentication/js/login.js";
+import { loadLogoutButton } from "../../authentication/js/logout.js";
+import { loadDeleteProfileButton } from "../../authentication/js/delete-profile.js";
+
 function loadPage(url) {
-    const xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-            document.getElementById("app").innerHTML = this.responseText;
-        }
-    };
-    xhttp.open("GET", url, true);
-    xhttp.send();
+    return new Promise((resolve, reject) => {
+        const xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4) {
+                if (this.status == 200) {
+                    document.getElementById("app").innerHTML = this.responseText;
+                    resolve();
+                } else {
+                    reject('Страницата не може да бъде заредена');
+                }
+            }
+        };
+        xhttp.open("GET", url, true);
+        xhttp.send();
+    });
 }
 
 function loadNavbar() {
     const navbarPath =
-        // localStorage.getItem('loggedIn') === 'true' ?
-        '/src/common/html/logged-in-navbar.html';
-    // '/src/common/html/logged-out-navbar.html';
+        localStorage.getItem('loggedIn') === 'true' ?
+            '/src/common/html/logged-in-navbar.html' :
+            '/src/common/html/logged-out-navbar.html';
 
     const xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
@@ -25,9 +36,15 @@ function loadNavbar() {
     xhttp.send();
 }
 
+function loadScript(scriptUrl) {
+    const script = document.createElement('script');
+    script.src = scriptUrl;
+    document.body.appendChild(script);
+}
+
 function navigate(path) {
     loadNavbar();
-    if (localStorage.getItem('loggedIn') !== 'true') {
+    if (localStorage.getItem('loggedIn') === 'true') {
         switch (path) {
             case '#/':
                 loadPage('/src/common/html/logged-in-index.html');
@@ -53,10 +70,15 @@ function navigate(path) {
             //     loadPage('/src/products/html/login.html');
             // }
             case '#/delete-profile':
-                loadPage('/src/authentication/html/delete-profile.html');
+                loadPage('/src/authentication/html/delete-profile.html').then(() => {
+                    loadDeleteProfileButton();
+                });
                 break;
             case '#/logout':
-                loadPage('/src/authentication/html/logout.html');
+                loadPage('/src/authentication/html/logout.html')
+                    .then(() => {
+                        loadLogoutButton();
+                    });
                 break;
             default:
                 loadPage('/src/common/html/not-found.html');
@@ -67,7 +89,10 @@ function navigate(path) {
                 loadPage('/src/authentication/html/registration.html');
                 break;
             case '#/login':
-                loadPage('/src/authentication/html/login.html');
+                loadPage('/src/authentication/html/login.html')
+                    .then(() => {
+                        setupLoginForm();
+                    });
                 break;
             default:
                 loadPage('/src/common/html/logged-out-index.html');

@@ -1,9 +1,9 @@
-document.addEventListener('DOMContentLoaded', function () {
+export function loadLogoutButton() {
     var logoutButton = document.getElementById('logout-button');
 
     logoutButton.addEventListener('click', function () {
-        sessionStorage.clear();
+        localStorage.clear();
 
         window.location.href = '#/';
     });
-});
+};

@@ -1,10 +1,10 @@
-document.addEventListener('DOMContentLoaded', function () {
-    if (localStorage.getItem('loggedIn') === 'true') {
-        window.location.href = '#/';
-    }
-
+function setupLoginForm() {
     // Връзка към формата за вход
     var loginForm = document.getElementById('loginForm');
+    if (!loginForm) {
+        console.error('LoginForm not found!');
+        return;
+    }
 
     // Функция, която се извиква при подаване (submit) на формата
     loginForm.onsubmit = function (e) {
@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function () {
         // Изпращане на заявка за вход към сървъра
         login(email, password);
     };
-});
+};
 
 // Функция за валидация на имейл
 function validateEmail(email) {
@@ -39,7 +39,7 @@ function validateEmail(email) {
 // Функция за изпращане на заявка за вход
 function login(email, password) {
     //TODO: Определяне на URL към сървърния endpoint за вход
-    var loginUrl = 'https://localhost:8080/login';
+    var loginUrl = 'http://localhost:8080/login';
 
     // Подготовка на данните за изпращане
     var data = {
@@ -56,6 +56,11 @@ function login(email, password) {
         body: JSON.stringify(data) // Преобразуване на данните в JSON формат
     })
         .then(response => {
+            console.log(response);
+            if (response.status == 404) {
+                alert('Грешен имейл или парола.');
+                throw new Error('Грешкна парола или имейл');
+            }
             if (!response.ok) {
                 throw new Error('Проблем при заявката за вход: ' + response.statusText);
             }
@@ -64,11 +69,13 @@ function login(email, password) {
         .then(data => {
             console.log('Успешен вход:', data);
             localStorage.setItem('loggedIn', true);
+            localStorage.setItem('userID', data);
+            console.log(localStorage.getItem('userID'));
             window.location.href = '#/';
         })
         .catch(error => {
             console.error('Грешка при вход:', error.message);
-            alert('Грешка при вход: ' + error.message); // Показва съобщение за грешка на потребителя
         });
 }
 
+export { setupLoginForm };
