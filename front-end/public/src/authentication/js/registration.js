@@ -77,7 +77,9 @@ function register(name, email, password, phoneNumber, address) {
         .then(data => {
             console.log('Успешна регистрация:', data);
             alert("Успешна регистрация");
-            window.location.href = '#/login';
+            setTimeout(function () {
+                window.location.href = '#/login';
+            }, 500);
         })
         .catch(error => {
             console.error('Грешка при регистрация:', error.message);

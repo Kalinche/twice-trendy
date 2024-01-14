@@ -9,9 +9,9 @@ export function setupCreateProductForm() {
         e.preventDefault();
 
         var formData = {
-            userId: localStorage.getItem('userID'),
+            userId: parseInt(localStorage.getItem('userID')),
             name: document.getElementById('name').value,
-            images: document.getElementById('images').value.split(',').map(url => url.trim()),
+            imagesURL: document.getElementById('images').value,
             description: document.getElementById('description').value,
             price: parseFloat(document.getElementById('price').value),
             size: document.getElementById('size').value,
@@ -19,6 +19,8 @@ export function setupCreateProductForm() {
             brand: document.getElementById('brand').value,
             condition: document.getElementById('condition').value
         };
+
+        console.log(formData);
 
         submitProduct(formData);
     };
@@ -43,6 +45,10 @@ function submitProduct(formData) {
         })
         .then(data => {
             console.log('Успешно създадена обява:', data);
+            alert("Успешно създадена обява!");
+            setTimeout(function () {
+                window.location.href = '#/products';
+            }, 500);
         })
         .catch(error => {
             console.error('Грешка при създаване на обява:', error.message);
