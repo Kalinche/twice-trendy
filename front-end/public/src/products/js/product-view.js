@@ -1,8 +1,8 @@
 document.addEventListener('DOMContentLoaded', function () {
-    var offerId = getOfferIdFromURL();
+    var productId = getProductsIdFromURL();
 
     //TODO: change
-    fetch('https://localhost:8080/offers/' + offerId)
+    fetch('http://localhost:8080/products/' + productId)
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
@@ -10,24 +10,24 @@ document.addEventListener('DOMContentLoaded', function () {
             return response.json();
         })
         .then(data => {
-            populateOfferDetails(data);
+            populateProductDetails(data);
         })
         .catch(error => {
-            console.error('Error fetching offer details:', error);
+            console.error('Error fetching product details:', error);
         });
 });
 
-function populateOfferDetails(data) {
-    document.querySelector('.offer-details h1').textContent = data.name;
+function populateProductDetails(data) {
+    document.querySelector('.product-details h1').textContent = data.name;
 
-    var imagesContainer = document.querySelector('.offer-images');
+    var imagesContainer = document.querySelector('.product-images');
     data.images.forEach(imgUrl => {
         var img = document.createElement('img');
         img.src = imgUrl;
         imagesContainer.appendChild(img);
     });
 
-    details = document.querySelector('.offer-datails')
+    details = document.querySelector('.product-datails')
     details.innerHTML += '<p><strong>Автор:</strong> ' + data.author + '</p>';
     details.innerHTML += '<p><strong>Описание:</strong> ' + data.description + '</p>';
     details.innerHTML += '<p><strong>Цена:</strong> ' + data.price + '</p>';
@@ -40,8 +40,8 @@ function populateOfferDetails(data) {
 }
 
 
-function getOfferIdFromURL() {
-    //TODO: get offer id
+function getProductIdFromURL() {
+    //TODO: get product id
     // Имплементирайте логика за извличане на ID на обявата от URL параметъра или друг метод
-    return 'some-offer-id'; // Примерен идентификатор
+    return 'some-product-id'; // Примерен идентификатор
 }
