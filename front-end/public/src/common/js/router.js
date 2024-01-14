@@ -4,7 +4,7 @@ import { setupLogoutButton } from "../../authentication/js/logout.js";
 import { setupDeleteProfileButton } from "../../authentication/js/delete-profile.js";
 import { setupRegistrationForm } from "../../authentication/js/registration.js";
 import { setupProductsGrid } from "../../products/js/products-grid.js";
-// import { setupUserProductsPage } from "../../products/js/user-products-grid.js";
+import { setupProductView } from "../../products/js/product-view.js";
 import { setupCreateProductForm } from "../../products/js/create-product.js";
 
 function loadPage(url) {
@@ -53,14 +53,26 @@ function loadNavbar() {
 
 function parseUrl(url) {
     const parts = url.split('/');
+    var entity;
+    var id;
+
+    if (isNaN(parts[2])) {
+        entity = parts[2];
+        id = parts[3];
+    } else {
+        entity = parts[1].slice(0, -1);
+        id = parts[2];
+    }
+
     return {
         path: parts[0] + "/" + parts[1],
-        id: parts[2] || null
+        entity: entity,
+        id: id
     };
 }
 
 function navigate(path) {
-    const { path: basePath, id } = parseUrl(path);
+    const { path: basePath, entity, id } = parseUrl(path);
     loadNavbar()
 
     if (localStorage.getItem('loggedIn') === 'true') {
@@ -73,10 +85,18 @@ function navigate(path) {
                 window.location.href = '#/';
                 break;
             case '#/products':
-                loadPage('/src/products/html/products-grid.html')
-                    .then(() => {
-                        setupProductsGrid(id);
-                    });
+                console.log(entity);
+                if (entity != "product") {
+                    loadPage('/src/products/html/products-grid.html')
+                        .then(() => {
+                            setupProductsGrid(id);
+                        });
+                } else {
+                    loadPage('/src/products/html/product-view.html')
+                        .then(() => {
+                            setupProductView(id);
+                        });
+                }
                 break;
             case '#/create-product':
                 loadPage('/src/products/html/create-product.html')
@@ -84,9 +104,6 @@ function navigate(path) {
                         setupCreateProductForm();
                     });
                 break;
-            // case '#/my-products':
-            // loadPage('/src/products/html/my-products.html');
-            // break;
             // case '#/profile':
             //     if (localStorage.getItem('loggedIn') === 'true') {
             //     loadPage('/src/products/html/profile.html');

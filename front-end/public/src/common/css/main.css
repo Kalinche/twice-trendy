@@ -69,6 +69,12 @@ main {
     border-radius: 5px;
 }
 
+#app {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 footer {
     background-color: #74b7a0;
     color: #ffffff;

@@ -1,7 +1,4 @@
-document.addEventListener('DOMContentLoaded', function () {
-    var productId = getProductsIdFromURL();
-
-    //TODO: change
+export function setupProductView(productId) {
     fetch('http://localhost:8080/products/' + productId)
         .then(response => {
             if (!response.ok) {
@@ -9,39 +6,43 @@ document.addEventListener('DOMContentLoaded', function () {
             }
             return response.json();
         })
-        .then(data => {
-            populateProductDetails(data);
+        .then(body => {
+            console.log(body);
+            // fetchUsername(body.data.)
+            populateProductDetails(body.data);
         })
         .catch(error => {
             console.error('Error fetching product details:', error);
         });
-});
+};
 
 function populateProductDetails(data) {
-    document.querySelector('.product-details h1').textContent = data.name;
+    document.querySelector('.product-container h1').textContent = data.name;
 
     var imagesContainer = document.querySelector('.product-images');
-    data.images.forEach(imgUrl => {
-        var img = document.createElement('img');
-        img.src = imgUrl;
-        imagesContainer.appendChild(img);
-    });
+    var img = document.createElement('img');
+    img.src = data.images;
+    imagesContainer.appendChild(img);
 
-    details = document.querySelector('.product-datails')
-    details.innerHTML += '<p><strong>Автор:</strong> ' + data.author + '</p>';
-    details.innerHTML += '<p><strong>Описание:</strong> ' + data.description + '</p>';
-    details.innerHTML += '<p><strong>Цена:</strong> ' + data.price + '</p>';
-    details.innerHTML += '<p><strong>Размер:</strong> ' + (data.size || 'N/A') + '</p>';
-    details.innerHTML += '<p><strong>Цвят:</strong> ' + (data.color || 'N/A') + '</p>';
-    details.innerHTML += '<p><strong>Марка:</strong> ' + (data.brand || 'N/A') + '</p>';
-    details.innerHTML += '<p><strong>Състояние на дрехата:</strong> ' + (data.condition || 'N/A') + '</p>';
-    details.innerHTML += '<p><strong>Статус на обявата:</strong> ' + data.status + '</p>';
-    details.innerHTML += '<p><strong>Купувач:</strong> ' + (data.buyer || 'Няма') + '</p>';
-}
+    var details = document.querySelector('.product-characteristics');
 
+    function createDetailElement(label, value) {
+        var strong = document.createElement('strong');
+        strong.textContent = label;
 
-function getProductIdFromURL() {
-    //TODO: get product id
-    // Имплементирайте логика за извличане на ID на обявата от URL параметъра или друг метод
-    return 'some-product-id'; // Примерен идентификатор
+        var p = document.createElement('p');
+        p.appendChild(strong);
+        p.appendChild(document.createTextNode(value || 'N/A'));
+
+        return p;
+    }
+
+    details.appendChild(createDetailElement('Автор: ', data.author));
+    details.appendChild(createDetailElement('Описание: ', data.description));
+    details.appendChild(createDetailElement('Цена: ', data.price, "лв."));
+    details.appendChild(createDetailElement('Размер: ', data.size));
+    details.appendChild(createDetailElement('Цвят: ', data.color));
+    details.appendChild(createDetailElement('Марка: ', data.brand));
+    details.appendChild(createDetailElement('Състояние на дрехата: ', data.condition));
+    details.appendChild(createDetailElement('Статус на обявата: ', data.status));
 }
