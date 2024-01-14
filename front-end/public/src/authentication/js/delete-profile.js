@@ -1,12 +1,12 @@
-export function loadDeleteProfileButton() {
+export function setupDeleteProfileButton() {
     document.getElementById('deleteProfileBtn').addEventListener('click', function () {
         const confirmed = confirm('Сигурни ли сте, че искате да изтриете вашия профил?');
 
         if (confirmed) {
-            const userID = localStorage.getItem('userID');
+            const userId = localStorage.getItem('userId');
 
 
-            fetch(`http://localhost:8080/users/${userID}`, {
+            fetch(`http://localhost:8080/users/${userId}`, {
                 method: 'DELETE'
                 // Допълнителни настройки за заявката, ако е необходимо
             })
@@ -19,7 +19,7 @@ export function loadDeleteProfileButton() {
                 .then(data => {
                     alert('Профилът беше успешно изтрит.');
                     window.location.href = '#/';
-                    localStorage.removeItem('userID');
+                    localStorage.removeItem('userId');
                     localStorage.removeItem('loggedIn');
                 })
                 .catch(error => {

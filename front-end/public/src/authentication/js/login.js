@@ -59,7 +59,7 @@ function login(email, password) {
             console.log('Успешен вход:', data);
             const userId = data.userId;
             localStorage.setItem('loggedIn', true);
-            localStorage.setItem('userID', userId);
+            localStorage.setItem('userId', userId);
             window.location.href = '#/';
         })
         .catch(error => {

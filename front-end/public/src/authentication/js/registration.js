@@ -8,9 +8,8 @@ export function setupRegistrationForm() {
 
     // Функция, която се извиква при подаване (submit) на формата
     registrationForm.onsubmit = function (e) {
-        e.preventDefault(); // Предотвратява стандартното поведение на браузъра
+        e.preventDefault();
 
-        // Събиране на данни от формата
         var name = document.getElementById('name').value
         var email = document.getElementById('email').value;
         var password = document.getElementById('password').value;
@@ -58,6 +57,7 @@ function register(name, email, password, phoneNumber, address) {
         password: password
     };
 
+    console.log(data);
     fetch(registerUrl, {
         method: 'POST',
         headers: {
@@ -76,7 +76,10 @@ function register(name, email, password, phoneNumber, address) {
         })
         .then(data => {
             console.log('Успешна регистрация:', data);
-            window.location.href = '#/login';
+            alert("Успешна регистрация");
+            setTimeout(function () {
+                window.location.href = '#/login';
+            }, 500);
         })
         .catch(error => {
             console.error('Грешка при регистрация:', error.message);

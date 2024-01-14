@@ -1,4 +1,4 @@
-export function loadLogoutButton() {
+export function setupLogoutButton() {
     var logoutButton = document.getElementById('logout-button');
 
     logoutButton.addEventListener('click', function () {
