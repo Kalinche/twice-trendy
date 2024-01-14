@@ -58,7 +58,6 @@ public class ProductController {
                 product.imagesURL,
                 dbUser,
                 product.name,
-                product.author,
                 product.description,
                 product.price,
                 product.size,
@@ -73,7 +72,7 @@ public class ProductController {
 
 //{
 //    "id": 97,
-//    "images": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fbillyj.com.au%2Fproducts%2Fsunny-daze-dress-black&psig=AOvVaw3WObtzambMioUS0zHsFove&ust=1705173933840000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCLDLkofK2IMDFQAAAAAdAAAAABAI",
+//    "imagesURL": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fbillyj.com.au%2Fproducts%2Fsunny-daze-dress-black&psig=AOvVaw3WObtzambMioUS0zHsFove&ust=1705173933840000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCLDLkofK2IMDFQAAAAAdAAAAABAI",
 //    "name": "dress",
 //    "userID": 5,
 //    "author": "John Smith",
@@ -85,4 +84,10 @@ public class ProductController {
 //    "condition": "Like new",
 //    "status": "Available"
 //}
+
+    @DeleteMapping("/products/{id}")
+    public ResponseEntity<Object> delete(@PathVariable final Integer id) {
+        this.productService.delete(id);
+        return generateGeneralResponse("Successfully deleted this product and all orders attached", HttpStatus.OK);
+    }
 }

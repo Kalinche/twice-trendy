@@ -67,7 +67,6 @@ public class OrderController {
 
         return generateResponseWithData("Order was created successfully", HttpStatus.OK, createdOrder);
     }
-}
 
 //order request:
 //{
@@ -75,3 +74,10 @@ public class OrderController {
 //    "productid": 2,
 //    "address": "Kumata 87, Sofia"
 //}
+
+    @DeleteMapping("/orders/{id}")
+    public ResponseEntity<Object> delete(@PathVariable final Integer id) {
+        this.orderService.delete(id);
+        return generateGeneralResponse("Successfully deleted this order!", HttpStatus.OK);
+    }
+}
