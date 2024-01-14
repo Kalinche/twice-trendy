@@ -1,6 +1,7 @@
 import { setupLoginForm } from "../../authentication/js/login.js";
 import { loadLogoutButton } from "../../authentication/js/logout.js";
 import { loadDeleteProfileButton } from "../../authentication/js/delete-profile.js";
+import { setupRegistrationForm } from "../../authentication/js/registration.js";
 
 function loadPage(url) {
     return new Promise((resolve, reject) => {
@@ -86,7 +87,10 @@ function navigate(path) {
     } else {
         switch (path) {
             case '#/registration':
-                loadPage('/src/authentication/html/registration.html');
+                loadPage('/src/authentication/html/registration.html')
+                    .then(() => {
+                        setupRegistrationForm();
+                    });
                 break;
             case '#/login':
                 loadPage('/src/authentication/html/login.html')

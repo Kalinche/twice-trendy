@@ -58,10 +58,8 @@ function login(email, password) {
         .then(data => {
             console.log('Успешен вход:', data);
             const userId = data.userId;
-            console.log("User id: ", userId);
             localStorage.setItem('loggedIn', true);
             localStorage.setItem('userID', userId);
-            console.log("Saved id: ", id);
             window.location.href = '#/';
         })
         .catch(error => {
