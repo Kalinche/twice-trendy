@@ -11,7 +11,7 @@ export function setupRegistrationForm() {
         e.preventDefault(); // Предотвратява стандартното поведение на браузъра
 
         // Събиране на данни от формата
-        var username = document.getElementById('username').value
+        var name = document.getElementById('name').value
         var email = document.getElementById('email').value;
         var password = document.getElementById('password').value;
         var confirmPassword = document.getElementById('confirmPassword').value;
@@ -38,7 +38,7 @@ export function setupRegistrationForm() {
             return;
         }
 
-        register(username, email, password, phoneNumber, address);
+        register(name, email, password, phoneNumber, address);
     };
 };
 
@@ -47,11 +47,11 @@ function validateEmail(email) {
     return pattern.test(email);
 }
 
-function register(username, email, password, phoneNumber, address) {
+function register(name, email, password, phoneNumber, address) {
     var registerUrl = 'http://localhost:8080/register';
 
     var data = {
-        username: username,
+        name: name,
         email: email,
         phone: phoneNumber,
         address: address,
