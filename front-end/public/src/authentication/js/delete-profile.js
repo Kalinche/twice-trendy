@@ -4,19 +4,28 @@ export function loadDeleteProfileButton() {
 
         if (confirmed) {
             const userID = localStorage.getItem('userID');
-            console.log(userID);
 
-            fetch(`https://localhost:8080/users/${userID}`, {
+
+            fetch(`http://localhost:8080/users/${userID}`, {
                 method: 'DELETE'
                 // Допълнителни настройки за заявката, ако е необходимо
             })
-                .then(response => response.json())
-                .then(data => {
-                    console.log(data.message);
-                    // Редирект или покажете съобщение за успешно изтриване
-                    window.location.href = '#/'; // Пренасочване към началната страница
+                .then(response => {
+                    if (response.status != 204) {
+                        // Обработка на грешка от сървъра
+                        throw new Error('Възникна грешка при изтриване на профила: ' + response.statusText);
+                    }
                 })
-                .catch(error => console.error('Error:', error));
+                .then(data => {
+                    alert('Профилът беше успешно изтрит.');
+                    window.location.href = '#/';
+                    localStorage.removeItem('userID');
+                    localStorage.removeItem('loggedIn');
+                })
+                .catch(error => {
+                    console.error('Error:', error.message);
+                    alert('Грешка при изтриване на профила: ' + error.message);
+                });
         }
     })
 };

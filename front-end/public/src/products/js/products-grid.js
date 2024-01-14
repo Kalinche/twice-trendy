@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-    fetch('https://localhost:8080/products/')
+    fetch('http://localhost:8080/products/')
         .then(response => response.json())
         .then(data => {
             const productsContainer = document.querySelector('.products-container');
