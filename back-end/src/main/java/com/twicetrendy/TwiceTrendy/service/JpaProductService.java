@@ -1,6 +1,7 @@
 package com.twicetrendy.TwiceTrendy.service;
 
 import com.twicetrendy.TwiceTrendy.data.Product;
+import com.twicetrendy.TwiceTrendy.dto.ProductDto;
 import com.twicetrendy.TwiceTrendy.repository.JpaProductRepository;
 import org.springframework.stereotype.Service;
 
@@ -27,14 +28,29 @@ public class JpaProductService implements ProductService {
     }
 
     @Override
-    public Product update(Product product) {
-        return null;
+    public Product update(int productId, ProductDto product) {
+        //get the product from the db
+        Product dbProduct = jpaProductRepository.findProductById(productId);
+        //apply the changes from the request
+        dbProduct.applyChangesFromDto(product);
+        jpaProductRepository.saveAndFlush(dbProduct);
+        return dbProduct;
+    }
+
+    @Override
+    public Product updateOrderedProduct(Product productToUpdate) {
+        return jpaProductRepository.saveAndFlush(productToUpdate);
     }
 
     //get all products
     @Override
     public List<Product> getAll() {
         return jpaProductRepository.findAll();
+    }
+
+    @Override
+    public List<Product> getProductsWithUserId(int id) {
+        return jpaProductRepository.findProductByUserId(id);
     }
 
     @Override

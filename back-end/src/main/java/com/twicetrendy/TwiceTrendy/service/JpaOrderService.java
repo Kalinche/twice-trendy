@@ -66,6 +66,11 @@ public class JpaOrderService implements OrderService {
         repository.deleteById(id);
     }
 
+    @Override
+    public List<Order> getOrdersWithUserId(int id) {
+        return repository.findOrderByUserId(id);
+    }
+
 //    @Override
 //    public void deleteAllOrdersWithUserId(int userId) {
 //        repository.deleteOrdersByUserId(userId);

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 import static com.twicetrendy.TwiceTrendy.controller.ResponseHandler.*;
+import static org.springframework.http.HttpStatus.NO_CONTENT;
 import static org.springframework.http.HttpStatus.UNAUTHORIZED;
 
 @RestController
@@ -43,6 +44,17 @@ public class ProductController {
             return handleNotFound("There are no products saved");
         } else {
             return generateResponseWithData("Products were found successfully", HttpStatus.OK, dbProducts);
+        }
+    }
+
+    @GetMapping("/products/user/{id}")
+    public ResponseEntity<Object> getProductsByUserId(@PathVariable final Integer id) {
+        List<Product> dbProducts = productService.getProductsWithUserId(id);
+        if (dbProducts.isEmpty()) {
+            return generateGeneralResponse("This user has no products listed", NO_CONTENT);
+        } else {
+            return generateResponseWithData(String.format("Products of user with id %d were found successfully", id),
+                    HttpStatus.OK, dbProducts);
         }
     }
 
@@ -80,12 +92,18 @@ public class ProductController {
 //    "size": "XS",
 //    "color": "black",
 //    "brand": "Shein",
-//    "condition": "Like new"
+//    "condition": "New"
 //}
 
     @DeleteMapping("/products/{id}")
     public ResponseEntity<Object> delete(@PathVariable final Integer id) {
         this.productService.delete(id);
         return generateGeneralResponse("Successfully deleted this product and all orders attached", HttpStatus.OK);
+    }
+
+    @PatchMapping("/products/{id}")
+    public ResponseEntity<Object> updateProduct(@PathVariable final Integer id, @RequestBody final ProductDto product) {
+        productService.update(id, product);
+        return generateGeneralResponse("Successfully updated this product", HttpStatus.OK);
     }
 }

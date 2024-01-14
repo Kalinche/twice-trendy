@@ -1,6 +1,7 @@
 package com.twicetrendy.TwiceTrendy.data;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.twicetrendy.TwiceTrendy.dto.ProductDto;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
@@ -21,7 +22,7 @@ public class Product {
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userid")
-    private User userid;
+    private User user;
 
     @Column(name = "name")
     private String name;
@@ -61,11 +62,47 @@ public class Product {
 
     public Product() {}
 
+    public void applyChangesFromDto(ProductDto dto) {
+        if (dto.imagesURL != null) {
+            this.images = dto.imagesURL;
+        }
+
+        if (dto.name != null) {
+            this.name = dto.name;
+        }
+
+        if (dto.description != null) {
+            this.description = dto.description;
+        }
+
+        if (dto.price != 0) {
+            this.price = new BigDecimal(dto.price);
+        }
+
+        if (dto.size != null) {
+            this.size = dto.size;
+        }
+
+         if (dto.color != null) {
+             this.color = dto.color;
+         }
+
+         if (dto.brand != null) {
+             this.brand = dto.brand;
+         }
+
+         if (dto.condition != null) {
+             this.condition = dto.condition;
+         }
+
+        this.status = "Available";//we have the product available by default when creating this ??(think of corner cases)
+    }
+
     //we have both userId and author - name of the user created
-    public Product(String images, User userid, String name, String description,
+    public Product(String images, User user, String name, String description,
                    double price, String size, String color, String brand, String condition) {
         this.images = images;
-        this.userid = userid;
+        this.user = user;
         this.name = name;
         this.description = description;
         this.price = new BigDecimal(price);
@@ -148,12 +185,12 @@ public class Product {
         this.name = name;
     }
 
-    public User getUserid() {
-        return userid;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserid(User userid) {
-        this.userid = userid;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getImages() {

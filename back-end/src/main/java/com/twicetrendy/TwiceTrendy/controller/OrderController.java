@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.util.List;
 
 import static com.twicetrendy.TwiceTrendy.controller.ResponseHandler.*;
+import static org.springframework.http.HttpStatus.NO_CONTENT;
 
 @RestController
 @RequestMapping(value = "")
@@ -60,8 +61,12 @@ public class OrderController {
         }
         //find user by userid
         User user = userService.get(order.userId);
+        //TO DO : check if the product is already ordered, if not - write in the db that it's ordered
+
         //find product by productid
         Product product = productService.get(order.productId);
+        product.setStatus("Sold");
+        productService.updateOrderedProduct(product);
 
         Order createdOrder = orderService.create(new Order(user, product, order.address));
 
@@ -74,6 +79,17 @@ public class OrderController {
 //    "productId": 2,
 //    "address": "Kumata 87, Sofia"
 //}
+
+    @GetMapping("/orders/user/{id}")
+    public ResponseEntity<Object> getOrdersByUserId(@PathVariable final Integer id) {
+        List<Order> dbOrders = orderService.getOrdersWithUserId(id);
+        if (dbOrders.isEmpty()) {
+            return generateGeneralResponse("This user has made no orders", NO_CONTENT);
+        } else {
+            return generateResponseWithData(String.format("Orders of user with id %d were found successfully", id),
+                    HttpStatus.OK, dbOrders);
+        }
+    }
 
     @DeleteMapping("/orders/{id}")
     public ResponseEntity<Object> delete(@PathVariable final Integer id) {
