@@ -19,6 +19,7 @@ export function loadProductsGrid() {
             data.forEach(product => {
                 const productCard = document.createElement('div');
                 productCard.className = 'product-card';
+                productCard.onclick = () => redirectToProductDetails(product.id);
 
                 const productImage = document.createElement('img');
                 productImage.src = product.images;
@@ -39,7 +40,7 @@ export function loadProductsGrid() {
         });
 };
 
-function redirectToproductDetails(productId) {
+function redirectToProductDetails(productId) {
     //TODO: Променете URL адреса според структурата на вашето приложение
     window.location.href = '/path-to-product-details/' + productId;
 }
