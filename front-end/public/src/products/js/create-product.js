@@ -39,19 +39,19 @@ function submitProduct(formData) {
         .then(response => {
             console.log(response);
             if (!response.ok) {
-                throw new Error('Проблем при заявката за създаване на обява: ' + response.statusText);
+                throw new Error('Проблем при заявката за създаване на продукт: ' + response.statusText);
             }
             return response.json();
         })
         .then(data => {
-            console.log('Успешно създадена обява:', data);
-            alert("Успешно създадена обява!");
+            console.log('Успешно създаден продукт:', data);
+            alert("Успешно създаден продукт!");
             setTimeout(function () {
-                window.location.href = '#/products';
+                window.location.href = '#/products/user/' + userId;
             }, 500);
         })
         .catch(error => {
-            console.error('Грешка при създаване на обява:', error.message);
+            console.error('Грешка при създаване на продукт:', error.message);
         });
 }
 
