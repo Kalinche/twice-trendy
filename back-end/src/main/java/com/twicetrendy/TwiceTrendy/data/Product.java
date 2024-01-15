@@ -1,6 +1,5 @@
 package com.twicetrendy.TwiceTrendy.data;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.twicetrendy.TwiceTrendy.dto.ProductDto;
 import jakarta.persistence.*;
 
@@ -19,8 +18,7 @@ public class Product {
     @Column(name = "images")
     private String images;
 
-    @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "userid")
     private User user;
 
@@ -63,8 +61,8 @@ public class Product {
     public Product() {}
 
     public void applyChangesFromDto(ProductDto dto) {
-        if (dto.imagesURL != null) {
-            this.images = dto.imagesURL;
+        if (dto.images != null) {
+            this.images = dto.images;
         }
 
         if (dto.name != null) {

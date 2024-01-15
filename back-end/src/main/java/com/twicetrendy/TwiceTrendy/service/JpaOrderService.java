@@ -80,4 +80,9 @@ public class JpaOrderService implements OrderService {
     public Optional<Order> getOrderByProductAndUserId(int productId, int userId) {
         return repository.findOrderByProductIdAndUserId(productId, userId);
     }
+
+    @Override
+    public List<Order> getOrdersWithProductId(int id) {
+        return repository.findOrderByProductId(id);
+    }
 }

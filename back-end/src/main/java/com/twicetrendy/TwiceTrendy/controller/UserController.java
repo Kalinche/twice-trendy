@@ -26,6 +26,16 @@ public class UserController {
         this.productService = productService;
     }
 
+    @GetMapping("/users/{id}")
+    public ResponseEntity<Object> getUserById(@PathVariable final Integer id) {
+        User dbUser = userService.get(id);
+        if (dbUser != null) {
+            return generateResponseWithData("User was found successfully", HttpStatus.OK, dbUser);
+        } else {
+            return handleNotFound("There is no user with such id");
+        }
+    }
+
     @PostMapping("/login")
     public ResponseEntity<Object> login(@RequestBody final UserDto user) {
         User dbUser = this.userService.get(user.email, user.password);
@@ -62,5 +72,11 @@ public class UserController {
     public ResponseEntity<Object> delete(@PathVariable final Integer id) {
         this.userService.delete(id);
         return generateGeneralResponse("Successfully deleted this user and all products and orders attached", HttpStatus.OK);
+    }
+
+    @PatchMapping("/users/{id}")
+    public ResponseEntity<Object> updateProduct(@PathVariable final Integer id, @RequestBody final UserDto user) {
+        userService.update(id, user);
+        return generateGeneralResponse("Successfully updated this user", HttpStatus.OK);
     }
 }
