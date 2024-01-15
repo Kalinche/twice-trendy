@@ -22,8 +22,8 @@ export function setupRegistrationForm() {
             return;
         }
 
-        if (!password) {
-            alert('Моля, въведете парола.');
+        if (!validatePassword(password)) {
+            alert('Паролата трябва да има поне 8 символа, поне една цифра и поне една главна буква.');
             return;
         }
 
@@ -44,6 +44,11 @@ export function setupRegistrationForm() {
 function validateEmail(email) {
     var pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return pattern.test(email);
+}
+
+function validatePassword(password) {
+    var pattern = /^(?=.*\d)(?=.*[A-Z]).{8,}$/;
+    return pattern.test(password);
 }
 
 function register(name, email, password, phoneNumber, address) {
