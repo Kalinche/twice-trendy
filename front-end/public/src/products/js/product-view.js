@@ -10,51 +10,27 @@ export function setupProductView(productId) {
             return response.json();
         })
         .then(body => {
-            //TODO: fix
-            // const username = fetchUsername(body.data.userId);
-            populateProductDetails(body.data, "kguzunova");
+            console.log(body.data);
+            populateProductDetails(body.data);
             if (body.data.status === "Available") {
-                if (4 === parseInt(localStorage.getItem('userId'))) {
-                    addEditButtons(body.data.id, 4);
+                if (body.data.user.id === parseInt(localStorage.getItem('userId'))) {
+                    addEditButtons(body.data);
                 } else {
-                    addOrderButton(body.data.id, 4);
+                    addOrderButton(body.data, localStorage.getItem("userId"));
                 }
             } else {
-                populateOrderDetails(body.data.id);
+                if (body.data.user.id === parseInt(localStorage.getItem('userId'))) {
+                    addDeleteButton(body.data);
+                }
+                populateOrderDetails(body.data);
             }
-            //TODO: fix
-            // if (body.data.userId === parseInt(localStorage.getItem('userId'))) {
-            //     addEditButtons(body.data.id, body.data.userId);
-            // } else {
-            //     addOrderButton(body.data.id, body.data.userId);
-            // }
         })
         .catch(error => {
             console.error('Error fetching product details:', error);
         });
 };
 
-function fetchUsername(userId) {
-    fetch('http://localhost:8080/users/' + userId)
-        .then(response => {
-            if (response.status == 404) {
-                throw new Error('No existing user with the id: ', userId);
-            }
-            else if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
-        .then(body => {
-            console.log(body);
-            return body.data.username;
-        })
-        .catch(error => {
-            console.error('Error fetching product details:', error);
-        });
-}
-
-function populateProductDetails(data, username) {
+function populateProductDetails(data) {
     document.querySelector('.product-container h1').textContent = data.name;
 
     var imagesContainer = document.querySelector('.product-images');
@@ -64,7 +40,7 @@ function populateProductDetails(data, username) {
 
     var details = document.querySelector('.product-characteristics');
 
-    details.appendChild(createDetailElement('Автор: ', username));
+    details.appendChild(createDetailElement('Автор: ', data.user.name));
     details.appendChild(createDetailElement('Описание: ', data.description));
     details.appendChild(createDetailElement('Цена: ', data.price, "лв."));
     details.appendChild(createDetailElement('Размер: ', data.size));
@@ -99,24 +75,35 @@ function deleteProduct(productId, userId) {
     }
 }
 
-function addEditButtons(productId, userId) {
+function addEditButtons(data) {
     var buttons = document.querySelector('.product-buttons');
 
     var deleteButton = document.createElement('button');
     deleteButton.textContent = "Изтрий";
     deleteButton.setAttribute('class', 'product-button')
-    deleteButton.onclick = () => { deleteProduct(productId, userId) }
+    deleteButton.onclick = () => { deleteProduct(data.id, data.user.id) }
 
     var editButton = document.createElement('button');
     editButton.textContent = "Редактирай";
     editButton.setAttribute('class', 'product-button')
-    editButton.onclick = () => { window.location.href = '#/products/edit/' + productId }
+    editButton.onclick = () => { window.location.href = '#/products/edit/' + data.id }
 
     buttons.appendChild(editButton);
     buttons.appendChild(deleteButton);
 }
 
-function orderProduct(productId, userId,) {
+function addDeleteButton(data) {
+    var buttons = document.querySelector('.product-buttons');
+
+    var deleteButton = document.createElement('button');
+    deleteButton.textContent = "Изтрий";
+    deleteButton.setAttribute('class', 'product-button')
+    deleteButton.onclick = () => { deleteProduct(data.id, data.user.id) }
+
+    buttons.appendChild(deleteButton);
+}
+
+function orderProduct(productId, userId) {
     const address = document.querySelector('.address-text-field').textContent;
 
     var data = {
@@ -125,8 +112,7 @@ function orderProduct(productId, userId,) {
         address: address
     }
 
-    //TODO: change to orders
-    var createOrderUrl = 'http://localhost:8080/order';
+    var createOrderUrl = 'http://localhost:8080/orders';
 
     fetch(createOrderUrl, {
         method: 'POST',
@@ -175,29 +161,8 @@ function addOrderButton(productId, userId) {
     buttons.appendChild(button);
 }
 
-function populateOrderDetails(productId) {
-    var getOrderUrl = 'http://localhost:8080/orders' + productId;
-    var username = "kguzunova";
-
-    //TODO: implement
-    // fetch(getOrderUrl)
-    //     .then(response => {
-    //         if (response.status == 404) {
-    //             throw new Error("Няма намерена поръчка за този продукт.");
-    //         }
-    //         else if (!response.ok) {
-    //             throw new Error(response.statusText);
-    //         }
-    //         return response.json();
-    //     })
-    //     .then(body => {
-    //         console.log(body.data);
-    //         //TODO: implement;
-    //         // username = fetchUserName(body.data.userId);
-    //     })
-    //     .catch(error => {
-    //         console.error('Грешка при вземане на поръчка:', error.message);
-    //     });
+function populateOrderDetails(data) {
+    var username = data.user.name;
 
     var details = document.querySelector('.product-characteristics');
 
