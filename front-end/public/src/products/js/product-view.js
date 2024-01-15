@@ -117,6 +117,6 @@ function addButtons(productId, userId) {
     editButton.setAttribute('class', 'product-button')
     editButton.onclick = () => { window.localStorage.href = '#/products/edit/' + productId }
 
-    details.appendChild(deleteButton);
     details.appendChild(editButton);
+    details.appendChild(deleteButton);
 }

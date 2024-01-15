@@ -39,3 +39,8 @@
     margin: 0;
     text-align: center;
 }
+
+.sold {
+    background-color: rgba(33, 59, 41, 0.5);
+    opacity: 0.7;
+}

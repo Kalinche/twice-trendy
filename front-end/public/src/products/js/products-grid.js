@@ -59,6 +59,10 @@ function buildGrid(body) {
         productCard.className = 'product-card';
         productCard.onclick = () => redirectToProductDetails(product.id);
 
+        if (product.status == "Sold") {
+            productCard.setAttribute('class', 'product-card sold');
+        }
+
         const productImage = document.createElement('img');
         productImage.src = product.images;
         productImage.alt = product.name;

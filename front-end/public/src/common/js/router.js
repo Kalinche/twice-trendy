@@ -85,7 +85,6 @@ function navigate(path) {
                 window.location.href = '#/';
                 break;
             case '#/products':
-                console.log(entity);
                 if (entity != "product") {
                     loadPage('/src/products/html/products-grid.html')
                         .then(() => {
