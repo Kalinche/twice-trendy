@@ -54,7 +54,7 @@ public class OrderController {
         }
     }
 
-    @PostMapping("/order")
+    @PostMapping("/orders")
     public ResponseEntity<Object> create(@RequestBody final OrderDto order) throws IOException {
         if (orderService.getOrderByProductAndUserId(order.productId, order.userId).isPresent()) {
             return handleNotAcceptable("There is already such an order");
@@ -87,6 +87,17 @@ public class OrderController {
             return generateGeneralResponse("This user has made no orders", NO_CONTENT);
         } else {
             return generateResponseWithData(String.format("Orders of user with id %d were found successfully", id),
+                    HttpStatus.OK, dbOrders);
+        }
+    }
+
+    @GetMapping("/orders/product/{id}")
+    public ResponseEntity<Object> getOrdersByProductId(@PathVariable final Integer id) {
+        List<Order> dbOrders = orderService.getOrdersWithProductId(id);
+        if (dbOrders.isEmpty()) {
+            return generateGeneralResponse("This product has made no orders", NO_CONTENT);
+        } else {
+            return generateResponseWithData(String.format("Orders of product with id %d were found successfully", id),
                     HttpStatus.OK, dbOrders);
         }
     }

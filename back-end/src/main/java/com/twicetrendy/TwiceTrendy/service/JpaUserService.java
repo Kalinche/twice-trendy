@@ -1,6 +1,7 @@
 package com.twicetrendy.TwiceTrendy.service;
 
 import com.twicetrendy.TwiceTrendy.data.User;
+import com.twicetrendy.TwiceTrendy.dto.UserDto;
 import com.twicetrendy.TwiceTrendy.repository.JpaUserRepository;
 import org.springframework.stereotype.Service;
 
@@ -35,6 +36,16 @@ public class JpaUserService implements UserService {
     @Override
     public User create(User user) {
         return jpaUserRepository.saveAndFlush(user);
+    }
+
+    @Override
+    public User update(int id, UserDto user) {
+        //get the user from the db
+        User dbUser = jpaUserRepository.findById(id).get();
+        //apply the changes from the request
+        dbUser.applyChangesFromDto(user);
+        jpaUserRepository.saveAndFlush(dbUser);
+        return dbUser;
     }
 
     //delete a user by id

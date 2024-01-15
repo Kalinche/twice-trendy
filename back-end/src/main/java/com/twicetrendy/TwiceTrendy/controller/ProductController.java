@@ -68,7 +68,7 @@ public class ProductController {
             return generateGeneralResponse("User isn't registered in the database", UNAUTHORIZED);
         }
         Product newProduct = new Product(
-                product.imagesURL,
+                product.images,
                 dbUser,
                 product.name,
                 product.description,
@@ -84,7 +84,7 @@ public class ProductController {
     }
 
 //{
-//    "imagesURL": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fbillyj.com.au%2Fproducts%2Fsunny-daze-dress-black&psig=AOvVaw3WObtzambMioUS0zHsFove&ust=1705173933840000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCLDLkofK2IMDFQAAAAAdAAAAABAI",
+//    "images": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fbillyj.com.au%2Fproducts%2Fsunny-daze-dress-black&psig=AOvVaw3WObtzambMioUS0zHsFove&ust=1705173933840000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCLDLkofK2IMDFQAAAAAdAAAAABAI",
 //    "name": "dress",
 //    "userId": 5,
 //    "description": "pretty dress",

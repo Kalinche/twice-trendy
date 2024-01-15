@@ -1,7 +1,7 @@
 package com.twicetrendy.TwiceTrendy.dto;
 
 public class ProductDto {
-    public String imagesURL;
+    public String images;
     public String name;
     public int userId;
     public String description;

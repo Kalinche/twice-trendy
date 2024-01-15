@@ -1,5 +1,7 @@
 package com.twicetrendy.TwiceTrendy.data;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.twicetrendy.TwiceTrendy.dto.UserDto;
 import jakarta.persistence.*;
 
 import java.util.LinkedHashSet;
@@ -28,9 +30,11 @@ public class User {
     @Column(name = "passwordhash")
     private String passwordhash;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private Set<Product> products = new LinkedHashSet<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private Set<Order> orders;
 
@@ -40,6 +44,20 @@ public class User {
 
     public User() {
 
+    }
+
+    public void applyChangesFromDto(UserDto dto) {
+        if (dto.name != null) {
+            this.name = dto.name;
+        }
+
+        if (dto.address != null) {
+            this.address = dto.address;
+        }
+
+        if (dto.phone != null) {
+            this.phone = dto.phone;
+        }
     }
 
     public User(String name, String email, String address, String phone, String passwordhash) {
@@ -71,6 +89,7 @@ public class User {
     }
 
     public void setPasswordhash(String passwordhash) {
+
         this.passwordhash = passwordhash;
     }
 

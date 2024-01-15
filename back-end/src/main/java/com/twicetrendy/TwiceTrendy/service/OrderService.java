@@ -21,4 +21,6 @@ public interface OrderService {
     List<Order> getOrdersWithUserId(int id);
 
     Optional<Order> getOrderByProductAndUserId(int productId, int userId);
+
+    List <Order> getOrdersWithProductId(int id);
 }
