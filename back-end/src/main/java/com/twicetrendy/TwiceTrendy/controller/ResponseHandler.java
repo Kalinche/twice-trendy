@@ -25,12 +25,33 @@ public class ResponseHandler {
         error.statusCode = HttpStatus.NOT_FOUND.value();
         return new ResponseEntity<>(error, new HttpHeaders(), HttpStatus.NOT_FOUND);
     }
+
     public static ResponseEntity<Object> generateResponseForLogIn(String message, HttpStatus status, Object responseObj) {
         Map<String, Object> map = new HashMap<>();
         map.put("message", message);
         map.put("userId", responseObj);
 
         return new ResponseEntity<>(map,status);
+    }
+
+    public static ResponseEntity<Object> generateResponseWithDataAndUserId(String message, HttpStatus status, Object responseObj, Integer userId) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("message", message);
+        map.put("userId", userId);
+        map.put("data", responseObj);
+
+        return new ResponseEntity<>(map, status);
+    }
+
+    public static ResponseEntity<Object> generateResponseWithDataAndUserIdAndProductId(String message, HttpStatus status,
+                                                                           Object responseObj, Integer userId, Integer productId) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("message", message);
+        map.put("userId", userId);
+        map.put("productId", productId);
+        map.put("data", responseObj);
+
+        return new ResponseEntity<>(map, status);
     }
 
     public static ResponseEntity<Object> generateResponseWithData(String message, HttpStatus status, Object responseObj) {

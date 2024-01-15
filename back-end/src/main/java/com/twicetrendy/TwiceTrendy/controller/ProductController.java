@@ -31,7 +31,7 @@ public class ProductController {
     public ResponseEntity<Object> getProductById(@PathVariable final Integer id) {
         Product dbProduct = productService.get(id);
         if (dbProduct != null) {
-            return generateResponseWithData("Product was found successfully", HttpStatus.OK, dbProduct);
+            return generateResponseWithDataAndUserId("Product was found successfully", HttpStatus.OK, dbProduct, dbProduct.getUser().getId());
         } else {
             return handleNotFound("There is no product with such id");
         }
