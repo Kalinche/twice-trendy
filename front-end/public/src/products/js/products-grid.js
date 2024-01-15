@@ -54,6 +54,11 @@ function buildGrid(body) {
     }
 
     const productsContainer = document.querySelector('.products-container');
+
+    data.sort(function (a, b) {
+        return a.status.localeCompare(b.status);
+    });
+
     data.forEach(product => {
         const productCard = document.createElement('div');
         productCard.className = 'product-card';
