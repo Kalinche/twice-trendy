@@ -1,7 +1,11 @@
 export function setupCreateProductForm() {
-    var createProductForm = document.getElementById('create-product-form');
+    const title = "Създай обява";
+
+    document.getElementById('form-title').textContent = title;
+    document.getElementById('form-button').textContent = title;
+    var createProductForm = document.getElementById('product-form');
     if (!createProductForm) {
-        console.error('CreateProductForm not found!');
+        console.error('Product form not found!');
         return;
     }
 
@@ -11,7 +15,7 @@ export function setupCreateProductForm() {
         var formData = {
             userId: parseInt(localStorage.getItem('userId')),
             name: document.getElementById('name').value,
-            imagesURL: document.getElementById('images').value,
+            imagesUrl: document.getElementById('images').value,
             description: document.getElementById('description').value,
             price: parseFloat(document.getElementById('price').value),
             size: document.getElementById('size').value,
@@ -45,7 +49,7 @@ function submitProduct(formData) {
         })
         .then(data => {
             console.log('Успешно създаден продукт:', data);
-            alert("Успешно създаден продукт!");
+            alert("Успешно създадден продукт!");
             setTimeout(function () {
                 window.location.href = '#/products/user/' + userId;
             }, 500);

@@ -6,6 +6,7 @@ import { setupRegistrationForm } from "../../authentication/js/registration.js";
 import { setupProductsGrid } from "../../products/js/products-grid.js";
 import { setupProductView } from "../../products/js/product-view.js";
 import { setupCreateProductForm } from "../../products/js/create-product.js";
+import { setupUpdateProductForm } from "../../products/js/update-product.js";
 
 function loadPage(url) {
     return new Promise((resolve, reject) => {
@@ -85,7 +86,13 @@ function navigate(path) {
                 window.location.href = '#/';
                 break;
             case '#/products':
-                if (entity != "product") {
+                if (entity == "edit") {
+                    loadPage('/src/products/html/product-form.html')
+                        .then(() => {
+                            setupUpdateProductForm(id);
+                        });
+                }
+                else if (entity != "product") {
                     loadPage('/src/products/html/products-grid.html')
                         .then(() => {
                             setupProductsGrid(id);
@@ -98,7 +105,7 @@ function navigate(path) {
                 }
                 break;
             case '#/create-product':
-                loadPage('/src/products/html/create-product.html')
+                loadPage('/src/products/html/product-form.html')
                     .then(() => {
                         setupCreateProductForm();
                     });
