@@ -1,9 +1,13 @@
 export function setupProductsGrid(userId) {
+    const pageTitle = document.querySelector('.title');
+
     var productsPromise;
     if (userId) {
         productsPromise = fetchUsersProducts(userId);
+        pageTitle.textContent = "Моите обяви";
     } else {
         productsPromise = fetchAllProducts();
+        pageTitle.textContent = "Всички обяви";
     }
 
     productsPromise

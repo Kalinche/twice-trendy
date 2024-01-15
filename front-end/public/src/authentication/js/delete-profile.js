@@ -11,16 +11,18 @@ export function setupDeleteProfileButton() {
                 // Допълнителни настройки за заявката, ако е необходимо
             })
                 .then(response => {
-                    if (response.status != 204) {
+                    if (!response.ok) {
                         // Обработка на грешка от сървъра
                         throw new Error('Възникна грешка при изтриване на профила: ' + response.statusText);
                     }
                 })
                 .then(data => {
                     alert('Профилът беше успешно изтрит.');
-                    window.location.href = '#/';
                     localStorage.removeItem('userId');
                     localStorage.removeItem('loggedIn');
+                    setTimeout(function () {
+                        window.location.href = '#/';
+                    }, 500);
                 })
                 .catch(error => {
                     console.error('Error:', error.message);

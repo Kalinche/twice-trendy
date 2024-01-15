@@ -7,7 +7,7 @@ body {
     display: flex;
     flex-direction: column;
     font-family: 'Arial', sans-serif;
-    background-color: #faf7f0;
+    background-color: #f8e8e0;
     color: #333;
     flex: 1;
 }
@@ -116,7 +116,7 @@ button {
     width: max-content;
     margin: 10px auto;
     padding: 10px 20px;
-    background-color: #faf7f0;
+    background-color: #f8e8e0;
     color: #333;
     border: none;
     border-radius: 5px;
