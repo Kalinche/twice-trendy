@@ -27,6 +27,7 @@ public class User {
     @Column(name = "email")
     private String email;
 
+    @JsonIgnore
     @Column(name = "passwordhash")
     private String passwordhash;
 
@@ -89,7 +90,6 @@ public class User {
     }
 
     public void setPasswordhash(String passwordhash) {
-
         this.passwordhash = passwordhash;
     }
 

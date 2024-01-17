@@ -1,5 +1,6 @@
 package com.twicetrendy.TwiceTrendy.data;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.twicetrendy.TwiceTrendy.dto.ProductDto;
 import jakarta.persistence.*;
 
@@ -51,6 +52,7 @@ public class Product {
     @Column(name = "status", length = 20)
     private String status;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private Set<Order> orders;
 

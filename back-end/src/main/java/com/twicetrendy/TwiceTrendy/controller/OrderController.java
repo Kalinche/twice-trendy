@@ -44,11 +44,12 @@ public class OrderController {
     }
 
     //get order by id
-    @GetMapping("/order/{id}")
+    @GetMapping("/orders/{id}")
     public ResponseEntity<Object> get(@PathVariable final Integer id) {
         Order dbOrder = orderService.get(id);
         if (dbOrder != null) {
-            return generateResponseWithData("Order was found successfully", HttpStatus.OK, dbOrder);
+            return generateResponseWithDataAndUserIdAndProductId("Order was found successfully", HttpStatus.OK, dbOrder,
+                    dbOrder.getUser().getId(), dbOrder.getProduct().getId());
         } else {
             return handleNotFound("There is no order with such id");
         }
