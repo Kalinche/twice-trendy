@@ -1,10 +1,15 @@
-export function setupProductsGrid(userId) {
+export function setupProductsGrid(userId, areOrders) {
     const pageTitle = document.querySelector('.title');
 
     var productsPromise;
     if (userId) {
-        productsPromise = fetchUsersProducts(userId);
-        pageTitle.textContent = "Моите обяви";
+        if (areOrders) {
+            productsPromise = fetchUserOrders(userId);
+            pageTitle.textContent = "Моите поръчки";
+        } else {
+            productsPromise = fetchUserProducts(userId);
+            pageTitle.textContent = "Моите обяви";
+        }
     } else {
         productsPromise = fetchAllProducts();
         pageTitle.textContent = "Всички обяви";
@@ -12,6 +17,7 @@ export function setupProductsGrid(userId) {
 
     productsPromise
         .then(data => {
+            console.log(data);
             buildGrid(data);
         })
         .catch(error => {
@@ -31,9 +37,12 @@ function fetchAllProducts() {
             }
             return response.json();
         })
+        .then(body => {
+            return body.data;
+        })
 }
 
-function fetchUsersProducts(userId) {
+function fetchUserProducts(userId) {
     return fetch(`http://localhost:8080/products/user/${userId}`)
         .then(response => {
             if (response.status == 404) {
@@ -44,10 +53,48 @@ function fetchUsersProducts(userId) {
             }
             return response.json();
         })
+        .then(body => {
+            return body.data;
+        })
 }
 
-function buildGrid(body) {
-    const data = body.data;
+function fetchUserOrders(userId) {
+    return fetch(`http://localhost:8080/orders/user/${userId}`)
+        .then(response => {
+            if (response.status == 404) {
+                throw new Error("Няма намерени продукти.");
+            } else if (!response.ok) {
+                throw new Error(response.statusText);
+            }
+            return response.json();
+        })
+        .then(body => {
+            //TODO: fix
+            // const orders = body.data;
+            const orders = [{
+                id: 4,
+                userId: 4,
+                productId: 2,
+                address: "adress"
+            }]
+            const productPromises = orders.map(order =>
+                fetch(`http://localhost:8080/products/${order.productId}`)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error("Грешка при зареждане на продукт.");
+                        }
+                        return response.json();
+                    })
+                    .then(body => {
+                        return body.data
+                    })
+            );
+
+            return Promise.all(productPromises);
+        })
+}
+
+function buildGrid(data) {
     if (!Array.isArray(data)) {
         console.log(data);
         throw new Error("Получените данни не са в правилен формат.");

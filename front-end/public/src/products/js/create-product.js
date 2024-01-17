@@ -49,7 +49,7 @@ function submitProduct(formData) {
         })
         .then(data => {
             console.log('Успешно създаден продукт:', data);
-            alert("Успешно създадден продукт!");
+            alert("Успешно създаден продукт!");
             setTimeout(function () {
                 window.location.href = '#/products/user/' + userId;
             }, 500);

@@ -12,17 +12,23 @@ export function setupProductView(productId) {
         .then(body => {
             console.log(body.data);
             populateProductDetails(body.data);
+            const isSeller = body.data.user.id === parseInt(localStorage.getItem('userId'))
+            const isBuyer = false;
+            //TODO: fix
+            // const isBuyer = body.data.user.id === parseInt(localStorage.getItem('userId'))
             if (body.data.status === "Available") {
-                if (body.data.user.id === parseInt(localStorage.getItem('userId'))) {
+                if (isSeller) {
                     addEditButtons(body.data);
                 } else {
-                    addOrderButton(body.data, localStorage.getItem("userId"));
+                    addOrderButton(body.data.id, localStorage.getItem("userId"));
                 }
             } else {
-                if (body.data.user.id === parseInt(localStorage.getItem('userId'))) {
+                if (isSeller) {
                     addDeleteButton(body.data);
                 }
-                populateOrderDetails(body.data);
+                if (isSeller || isBuyer) {
+                    populateOrderDetails(body.data.orders[0]);
+                }
             }
         })
         .catch(error => {
@@ -132,7 +138,7 @@ function orderProduct(productId, userId) {
             console.log('Успешно създадена поръчка:', data);
             alert("Успешно създадена поръчка!");
             setTimeout(function () {
-                window.location.href = '#/orders';
+                window.location.href = '#/orders/' + userId;
             }, 500);
         })
         .catch(error => {
@@ -161,12 +167,33 @@ function addOrderButton(productId, userId) {
     buttons.appendChild(button);
 }
 
-function populateOrderDetails(data) {
-    var username = data.user.name;
+function fetchUsername(userId) {
+    return fetch('http://localhost:8080/user/' + userId)
+        .then(response => {
+            if (response.status == 404) {
+                throw new Error('User not found with id: ' + userId);
+            }
+            else if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(body => {
+            body.data.username;
+        })
+}
+
+function populateOrderDetails(order) {
+    console.log(order);
+    //Fix this to buyer
+    // const username = fetchUsername(order.userId);
+    const username = "Buyer"
+    const address = order.address;
 
     var details = document.querySelector('.product-characteristics');
 
     details.appendChild(createDetailElement('Закупен от: ', username));
+    details.appendChild(createDetailElement('Поръчан на адрес: ', address));
 }
 
 function createDetailElement(label, value) {

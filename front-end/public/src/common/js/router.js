@@ -95,7 +95,7 @@ function navigate(path) {
                 else if (entity != "product") {
                     loadPage('/src/products/html/products-grid.html')
                         .then(() => {
-                            setupProductsGrid(id);
+                            setupProductsGrid(id, false);
                         });
                 } else {
                     loadPage('/src/products/html/product-view.html')
@@ -109,6 +109,11 @@ function navigate(path) {
                     .then(() => {
                         setupCreateProductForm();
                     });
+                break;
+            case '#/orders': loadPage('/src/products/html/products-grid.html')
+                .then(() => {
+                    setupProductsGrid(id, true);
+                });
                 break;
             // case '#/profile':
             //     if (localStorage.getItem('loggedIn') === 'true') {
