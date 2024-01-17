@@ -19,12 +19,15 @@ public class JpaProductService implements ProductService {
     @Override
     public Product get(int id) {
         Product product = jpaProductRepository.findProductById(id);
+        product.setIdUser();
         return product;
     }
 
     @Override
     public Product create(Product product) {
-        return jpaProductRepository.saveAndFlush(product);
+        Product p = jpaProductRepository.saveAndFlush(product);
+        p.setIdUser();
+        return p;
     }
 
     @Override
@@ -34,32 +37,38 @@ public class JpaProductService implements ProductService {
         //apply the changes from the request
         dbProduct.applyChangesFromDto(product);
         jpaProductRepository.saveAndFlush(dbProduct);
+        dbProduct.setIdUser();
         return dbProduct;
     }
 
     @Override
     public Product updateOrderedProduct(Product productToUpdate) {
-        return jpaProductRepository.saveAndFlush(productToUpdate);
+        Product product = jpaProductRepository.saveAndFlush(productToUpdate);
+        product.setIdUser();
+        return product;
     }
 
     //get all products
     @Override
     public List<Product> getAll() {
-        return jpaProductRepository.findAll();
+        List<Product> products = jpaProductRepository.findAll();
+        for (Product p : products) {
+            p.setIdUser();
+        }
+        return products;
     }
 
     @Override
     public List<Product> getProductsWithUserId(int id) {
-        return jpaProductRepository.findProductByUserId(id);
+        List<Product> products = jpaProductRepository.findProductByUserId(id);
+        for (Product p : products) {
+            p.setIdUser();
+        }
+        return products;
     }
 
     @Override
     public void delete(int id) {
         jpaProductRepository.deleteById(id);
     }
-
-//    @Override
-//    public Optional<Product> findByProductId(int id) {
-//        return jpaProductRepository.findById(id);
-//    }
 }

@@ -57,7 +57,7 @@ public class OrderController {
 
     @PostMapping("/orders")
     public ResponseEntity<Object> create(@RequestBody final OrderDto order) throws IOException {
-        if (orderService.getOrderByProductAndUserId(order.productId, order.userId).isPresent()) {
+        if (orderService.getOrderByProductAndUserId(order.productId, order.userId) != null) {
             return handleNotAcceptable("There is already such an order");
         }
         //find user by userid

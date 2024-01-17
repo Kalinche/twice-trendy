@@ -16,17 +16,25 @@ public class Order {
     @JoinColumn(name = "userid")
     private User user;
 
+    @Transient
+    private int idUser;
+
     @JsonIgnore
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "productid")
     private Product product;
+
+    @Transient
+    private int idProduct;
 
     @Column(name = "address")
     private String address;
 
     public Order(User user, Product product, String address) {
         this.user = user;
+        this.idUser = user.getId();
         this.product = product;
+        this.idProduct = product.getId();
         this.address = address;
     }
 
@@ -46,12 +54,20 @@ public class Order {
         return product;
     }
 
+    public int getIdProduct() {
+        return idProduct;
+    }
+
     public void setProduct(Product product) {
         this.product = product;
     }
 
     public User getUser() {
         return user;
+    }
+
+    public int getIdUser() {
+        return idUser;
     }
 
     public void setUser(User user) {
@@ -64,5 +80,13 @@ public class Order {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public void setIdUser() {
+        this.idUser = user.getId();
+    }
+
+    public void setIdProduct() {
+        this.idProduct = product.getId();
     }
 }
