@@ -45,7 +45,6 @@ function login(email, password) {
         body: JSON.stringify(data)
     })
         .then(response => {
-            console.log(response);
             if (response.status == 404 || response.status == 500) {
                 alert('Грешен имейл или парола.');
                 throw new Error('Грешна парола или имейл');

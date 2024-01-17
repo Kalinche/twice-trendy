@@ -4,8 +4,10 @@ import { setupLogoutButton } from "../../authentication/js/logout.js";
 import { setupDeleteProfileButton } from "../../authentication/js/delete-profile.js";
 import { setupRegistrationForm } from "../../authentication/js/registration.js";
 import { setupProductsGrid } from "../../products/js/products-grid.js";
-// import { setupUserProductsPage } from "../../products/js/user-products-grid.js";
+import { setupProductView } from "../../products/js/product-view.js";
 import { setupCreateProductForm } from "../../products/js/create-product.js";
+import { setupUpdateProductForm } from "../../products/js/update-product.js";
+import { setupUpdateProfileForm } from "../../authentication/js/update-profile.js";
 
 function loadPage(url) {
     return new Promise((resolve, reject) => {
@@ -53,14 +55,26 @@ function loadNavbar() {
 
 function parseUrl(url) {
     const parts = url.split('/');
+    var entity;
+    var id;
+
+    if (isNaN(parts[2])) {
+        entity = parts[2];
+        id = parts[3];
+    } else {
+        entity = parts[1].slice(0, -1);
+        id = parts[2];
+    }
+
     return {
         path: parts[0] + "/" + parts[1],
-        id: parts[2] || null
+        entity: entity,
+        id: id
     };
 }
 
 function navigate(path) {
-    const { path: basePath, id } = parseUrl(path);
+    const { path: basePath, entity, id } = parseUrl(path);
     loadNavbar()
 
     if (localStorage.getItem('loggedIn') === 'true') {
@@ -73,27 +87,42 @@ function navigate(path) {
                 window.location.href = '#/';
                 break;
             case '#/products':
-                loadPage('/src/products/html/products-grid.html')
-                    .then(() => {
-                        setupProductsGrid(id);
-                    });
+                if (entity == "edit") {
+                    loadPage('/src/products/html/product-form.html')
+                        .then(() => {
+                            setupUpdateProductForm(id);
+                        });
+                }
+                else if (entity != "product") {
+                    loadPage('/src/products/html/products-grid.html')
+                        .then(() => {
+                            setupProductsGrid(id, false);
+                        });
+                } else {
+                    loadPage('/src/products/html/product-view.html')
+                        .then(() => {
+                            setupProductView(id);
+                        });
+                }
                 break;
             case '#/create-product':
-                loadPage('/src/products/html/create-product.html')
+                loadPage('/src/products/html/product-form.html')
                     .then(() => {
                         setupCreateProductForm();
                     });
                 break;
-            // case '#/my-products':
-            // loadPage('/src/products/html/my-products.html');
-            // break;
-            // case '#/profile':
-            //     if (localStorage.getItem('loggedIn') === 'true') {
-            //     loadPage('/src/products/html/profile.html');
-            // } else {
-            //     // Пренасочете към страница за вход или началната страница
-            //     loadPage('/src/products/html/login.html');
-            // }
+            case '#/orders':
+                loadPage('/src/products/html/products-grid.html')
+                    .then(() => {
+                        setupProductsGrid(id, true);
+                    });
+                break;
+            case '#/profile':
+                loadPage('/src/authentication/html/profile-form.html')
+                    .then(() => {
+                        setupUpdateProfileForm(id, true);
+                    });
+                break;
             case '#/delete-profile':
                 loadPage('/src/authentication/html/delete-profile.html')
                     .then(() => {
@@ -112,7 +141,7 @@ function navigate(path) {
     } else {
         switch (path) {
             case '#/registration':
-                loadPage('/src/authentication/html/registration.html')
+                loadPage('/src/authentication/html/profile-form.html')
                     .then(() => {
                         setupRegistrationForm();
                     });
