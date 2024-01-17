@@ -19,9 +19,13 @@ public class Product {
     @Column(name = "images")
     private String images;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "userid")
     private User user;
+
+    @Transient
+    private int idUser;
 
     @Column(name = "name")
     private String name;
@@ -103,6 +107,7 @@ public class Product {
                    double price, String size, String color, String brand, String condition) {
         this.images = images;
         this.user = user;
+        this.idUser = user.getId();
         this.name = name;
         this.description = description;
         this.price = new BigDecimal(price);
@@ -193,6 +198,8 @@ public class Product {
         this.user = user;
     }
 
+    public int getIdUser() { return idUser; }
+
     public String getImages() {
         return images;
     }
@@ -207,5 +214,9 @@ public class Product {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public void setIdUser() {
+        this.idUser = this.user.getId();
     }
 }

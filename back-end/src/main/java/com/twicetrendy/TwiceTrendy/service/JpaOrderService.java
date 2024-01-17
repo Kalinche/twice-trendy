@@ -21,42 +21,41 @@ public class JpaOrderService implements OrderService {
     public Order get(int id) {
         Optional<Order> order = repository.findById(id);
         if (order.isPresent()) {
-            return order.get();
+            Order o = order.get();
+            o.setIdUser();
+            o.setIdProduct();
+            return o;
         }
-        return null;//or throw an exception and then catch it
+        return null;
     }
 
     //create a new order
     @Override
     public Order create(Order order) {
-        return repository.saveAndFlush(order);
+        Order o =repository.saveAndFlush(order);
+        o.setIdProduct();
+        o.setIdUser();
+        return o;
     }
 
     //get all orders
     @Override
     public List<Order> getAll() {
-        return repository.findAll();
+        List<Order> orders = repository.findAll();
+        for (Order o : orders) {
+            o.setIdUser();
+            o.setIdProduct();
+        }
+        return orders;
     }
 
     //update a image
     @Override
     public Order update(Order order) {
         Order dbOrder = get(order.getId());
-        // Check if url is modified and such url already exists.
-//        if (!image.getUrl().equals(dbImage.getUrl()) &&
-//                repository.findByUrl(image.getUrl()).isPresent()) {
-//            throw new IllegalArgumentException(String.format(
-//                    "An image with the specified url '%s' already exists.",
-//                    image.getUrl()));
-//        }
-//
-//        dbImage.setUrl(image.getUrl());
-//        dbImage.setTimeAdded(image.getTimeAdded());
-//        dbImage.setService(image.getService());
-//        dbImage.setHeight(image.getHeight());
-//        dbImage.setWidth(image.getWidth());
-//        dbImage.setImageTags(image.getImageTags());
         repository.saveAndFlush(dbOrder);
+        dbOrder.setIdProduct();
+        dbOrder.setIdUser();
         return dbOrder;
     }
 
@@ -68,21 +67,33 @@ public class JpaOrderService implements OrderService {
 
     @Override
     public List<Order> getOrdersWithUserId(int id) {
-        return repository.findOrderByUserId(id);
+        List<Order> orders = repository.findOrderByUserId(id);
+        for (Order o : orders) {
+            o.setIdUser();
+            o.setIdProduct();
+        }
+        return orders;
     }
 
-//    @Override
-//    public void deleteAllOrdersWithUserId(int userId) {
-//        repository.deleteOrdersByUserId(userId);
-//    }
-
     @Override
-    public Optional<Order> getOrderByProductAndUserId(int productId, int userId) {
-        return repository.findOrderByProductIdAndUserId(productId, userId);
+    public Order getOrderByProductAndUserId(int productId, int userId) {
+        Optional<Order> order = repository.findOrderByProductIdAndUserId(productId, userId);
+        if (order.isEmpty()) {
+            return null;
+        }
+        Order o = order.get();
+        o.setIdProduct();
+        o.setIdUser();
+        return o;
     }
 
     @Override
     public List<Order> getOrdersWithProductId(int id) {
-        return repository.findOrderByProductId(id);
+        List<Order> orders = repository.findOrderByProductId(id);
+        for (Order o : orders) {
+            o.setIdUser();
+            o.setIdProduct();
+        }
+        return orders;
     }
 }
