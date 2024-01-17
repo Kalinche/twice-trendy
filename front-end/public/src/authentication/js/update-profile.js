@@ -4,7 +4,11 @@ export function setupUpdateProfileForm() {
         return;
     }
 
+    var deleteButton = document.createElement('button');
+    deleteButton.textContent = "Изтрий профила";
+    deleteButton.onclick = () => { window.location.href = "#/delete-profile" }
 
+    document.querySelector('.form-container').appendChild(deleteButton);
     document.getElementById('formTitle').textContent = "Редактиране на профила";
     document.getElementById('profileFomButton').textContent = "Запази";
 
