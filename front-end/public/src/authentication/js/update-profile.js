@@ -85,7 +85,6 @@ function updateProfile(name, email, password, phoneNumber, address) {
         body: JSON.stringify(data)
     })
         .then(response => {
-            console.log(response);
             if (!response.ok) {
                 throw new Error('Проблем при заявката за редактиране на профил: ' + response.statusText);
             }

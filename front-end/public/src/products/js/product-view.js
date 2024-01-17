@@ -10,7 +10,6 @@ export function setupProductView(productId) {
             return response.json();
         })
         .then(body => {
-            console.log(body.data);
             populateProductDetails(body.data);
             const isSeller = body.data.idUser === parseInt(localStorage.getItem('userId'));
 
@@ -27,9 +26,7 @@ export function setupProductView(productId) {
 
                 fetchOrder(productId)
                     .then(order => {
-                        console.log(order);
                         const isBuyer = order.idUser === parseInt(localStorage.getItem('userId'));
-                        console.log(isBuyer, " ", order.idUser);
                         if (isSeller || isBuyer) {
                             populateOrderDetails(order);
                         }
@@ -53,7 +50,6 @@ function populateProductDetails(data) {
 
     fetchUsername(data.idUser)
         .then(username => {
-            console.log(username);
             details.appendChild(createDetailElement('Автор: ', username));
             details.appendChild(createDetailElement('Описание: ', data.description));
             details.appendChild(createDetailElement('Цена: ', data.price, "лв."));
@@ -120,7 +116,6 @@ function addDeleteButton(data) {
 
 function orderProduct(productId, userId) {
     const address = document.querySelector('.address-text-field').value;
-    console.log("Address ", address);
 
     var data = {
         userId: userId,
@@ -138,7 +133,6 @@ function orderProduct(productId, userId) {
         body: JSON.stringify(data)
     })
         .then(response => {
-            console.log(response);
             if (!response.ok) {
                 throw new Error('Проблем при заявката за създаване на поръчка: ' + response.statusText);
             }
@@ -210,8 +204,6 @@ function fetchOrder(productId) {
 }
 
 function populateOrderDetails(order) {
-    console.log(order);
-
     const address = order.address;
 
     var details = document.querySelector('.product-characteristics');

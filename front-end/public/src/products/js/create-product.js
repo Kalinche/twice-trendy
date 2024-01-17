@@ -24,8 +24,6 @@ export function setupCreateProductForm() {
             condition: document.getElementById('condition').value
         };
 
-        console.log(formData);
-
         submitProduct(formData);
     };
 };
@@ -41,7 +39,6 @@ function submitProduct(formData) {
         body: JSON.stringify(formData)
     })
         .then(response => {
-            console.log(response);
             if (!response.ok) {
                 throw new Error('Проблем при заявката за създаване на продукт: ' + response.statusText);
             }

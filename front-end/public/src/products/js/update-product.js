@@ -26,8 +26,6 @@ export function setupUpdateProductForm(productId) {
             condition: document.getElementById('condition').value
         };
 
-        console.log(formData);
-
         submitProduct(productId, formData);
     };
 };
@@ -67,7 +65,6 @@ function submitProduct(productId, formData) {
         body: JSON.stringify(formData)
     })
         .then(response => {
-            console.log(response);
             if (!response.ok) {
                 throw new Error('Проблем при заявката за редактиране на продукт: ' + response.statusText);
             }

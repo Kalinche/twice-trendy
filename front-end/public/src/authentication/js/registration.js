@@ -65,7 +65,6 @@ function register(name, email, password, phoneNumber, address) {
         password: password
     };
 
-    console.log(data);
     fetch(registerUrl, {
         method: 'POST',
         headers: {

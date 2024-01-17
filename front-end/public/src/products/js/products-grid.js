@@ -4,7 +4,6 @@ export function setupProductsGrid(userId, areOrders) {
     var productsPromise;
     if (userId) {
         if (areOrders) {
-            console.log("UserId: ", userId)
             productsPromise = fetchUserOrders(userId);
             pageTitle.textContent = "Моите поръчки";
         } else {
@@ -18,7 +17,6 @@ export function setupProductsGrid(userId, areOrders) {
 
     productsPromise
         .then(data => {
-            console.log(data);
             buildGrid(data);
         })
         .catch(error => {
@@ -46,7 +44,6 @@ function fetchAllProducts() {
 function fetchUserProducts(userId) {
     return fetch(`http://localhost:8080/products/user/${userId}`)
         .then(response => {
-            console.log(response);
             if (response.status == 204) {
                 throw new Error("Няма намерени обяви");
             }
@@ -91,7 +88,6 @@ function fetchUserOrders(userId) {
 
 function buildGrid(data) {
     if (!Array.isArray(data)) {
-        console.log(data);
         throw new Error("Получените данни не са в правилен формат.");
     }
 
