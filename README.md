@@ -63,14 +63,43 @@ With both servers running, open your web browser:
 The application's front-end includes a dynamic navigation bar and supports various routes for user interaction. The back-end provides the necessary API endpoints to support front-end functionalities.
 
 ### Available Routes
-- Home: #/
-- Registration: #/registration
-- Login: #/login
-- Products: #/products
-- Create Product: #/create-product
-- My Products: #/my-products
-- Profile: #/profile
-- Logout: #/logout
+
+- **Home**: `#/`
+  - The landing page of the application.
+  
+- **Registration**: `#/registration`
+  - Allows new users to register. Redirects to the home page if the user is already logged in.
+  
+- **Login**: `#/login`
+  - For user login. Redirects to the home page if the user is already logged in.
+
+- **Products**: `#/products`
+  - Displays all products. Users can view products without logging in.
+
+- **Product View**: `#/products/product/{productId}`
+  - Detailed view of a specific product, accessible by clicking on a product in the products list.
+
+- **Edit Product**: `#/products/edit/{productId}`
+  - Allows editing of a product. Only accessible to the user who created the product.
+
+- **Create Product**: `#/create-product`
+  - Allows logged-in users to create a new product.
+
+- **My Products**: `#/my-products`
+  - Shows the products created by the logged-in user.
+
+- **Profile**: `#/profile`
+  - Allows logged-in users to view and edit their profile.
+
+- **Delete Profile**: `#/delete-profile`
+  - Enables users to delete their profile.
+
+- **Logout**: `#/logout`
+  - Logs out the current user.
+
+- **Orders**: `#/orders`
+  - Displays orders associated with the logged-in user.
+
 
 ## Contributing
 If you wish to contribute to the project, please fork the repository and create a pull request with your changes. We welcome all contributions!
