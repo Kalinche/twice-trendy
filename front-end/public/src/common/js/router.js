@@ -7,6 +7,7 @@ import { setupProductsGrid } from "../../products/js/products-grid.js";
 import { setupProductView } from "../../products/js/product-view.js";
 import { setupCreateProductForm } from "../../products/js/create-product.js";
 import { setupUpdateProductForm } from "../../products/js/update-product.js";
+import { setupUpdateProfileForm } from "../../authentication/js/update-profile.js";
 
 function loadPage(url) {
     return new Promise((resolve, reject) => {
@@ -110,18 +111,18 @@ function navigate(path) {
                         setupCreateProductForm();
                     });
                 break;
-            case '#/orders': loadPage('/src/products/html/products-grid.html')
-                .then(() => {
-                    setupProductsGrid(id, true);
-                });
+            case '#/orders':
+                loadPage('/src/products/html/products-grid.html')
+                    .then(() => {
+                        setupProductsGrid(id, true);
+                    });
                 break;
-            // case '#/profile':
-            //     if (localStorage.getItem('loggedIn') === 'true') {
-            //     loadPage('/src/products/html/profile.html');
-            // } else {
-            //     // Пренасочете към страница за вход или началната страница
-            //     loadPage('/src/products/html/login.html');
-            // }
+            case '#/profile':
+                loadPage('/src/authentication/html/profile-form.html')
+                    .then(() => {
+                        setupUpdateProfileForm(id, true);
+                    });
+                break;
             case '#/delete-profile':
                 loadPage('/src/authentication/html/delete-profile.html')
                     .then(() => {
@@ -140,7 +141,7 @@ function navigate(path) {
     } else {
         switch (path) {
             case '#/registration':
-                loadPage('/src/authentication/html/registration.html')
+                loadPage('/src/authentication/html/profile-form.html')
                     .then(() => {
                         setupRegistrationForm();
                     });

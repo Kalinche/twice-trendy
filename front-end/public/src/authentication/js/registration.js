@@ -3,8 +3,11 @@ export function setupRegistrationForm() {
         window.location.href = '#/';
     }
 
-    // Връзка към формата за регистрация
-    var registrationForm = document.getElementById('registrationForm');
+    var registrationForm = document.getElementById('profileForm');
+    document.getElementById('formTitle').textContent = "Регистрация в Twice Trendy";
+    document.getElementById('profileFomButton').textContent = "Регистрай се";
+    document.getElementById('password').setAttribute('required', 'required');
+    document.getElementById('confirmPassword').setAttribute('required', 'required');
 
     // Функция, която се извиква при подаване (submit) на формата
     registrationForm.onsubmit = function (e) {
