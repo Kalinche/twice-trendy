@@ -4,6 +4,7 @@ export function setupProductsGrid(userId, areOrders) {
     var productsPromise;
     if (userId) {
         if (areOrders) {
+            console.log("UserId: ", userId)
             productsPromise = fetchUserOrders(userId);
             pageTitle.textContent = "Моите поръчки";
         } else {
@@ -70,16 +71,9 @@ function fetchUserOrders(userId) {
             return response.json();
         })
         .then(body => {
-            //TODO: fix
-            // const orders = body.data;
-            const orders = [{
-                id: 4,
-                userId: 4,
-                productId: 2,
-                address: "adress"
-            }]
+            const orders = body.data;
             const productPromises = orders.map(order =>
-                fetch(`http://localhost:8080/products/${order.productId}`)
+                fetch(`http://localhost:8080/products/${order.idProduct}`)
                     .then(response => {
                         if (!response.ok) {
                             throw new Error("Грешка при зареждане на продукт.");

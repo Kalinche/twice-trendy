@@ -12,10 +12,8 @@ export function setupProductView(productId) {
         .then(body => {
             console.log(body.data);
             populateProductDetails(body.data);
-            const isSeller = body.data.user.id === parseInt(localStorage.getItem('userId'))
-            const isBuyer = false;
-            //TODO: fix
-            // const isBuyer = body.data.user.id === parseInt(localStorage.getItem('userId'))
+            const isSeller = body.data.idUser === parseInt(localStorage.getItem('userId'));
+
             if (body.data.status === "Available") {
                 if (isSeller) {
                     addEditButtons(body.data);
@@ -26,9 +24,16 @@ export function setupProductView(productId) {
                 if (isSeller) {
                     addDeleteButton(body.data);
                 }
-                if (isSeller || isBuyer) {
-                    populateOrderDetails(body.data.orders[0]);
-                }
+
+                fetchOrder(productId)
+                    .then(order => {
+                        console.log(order);
+                        const isBuyer = order.idUser === parseInt(localStorage.getItem('userId'));
+                        console.log(isBuyer, " ", order.idUser);
+                        if (isSeller || isBuyer) {
+                            populateOrderDetails(order);
+                        }
+                    });
             }
         })
         .catch(error => {
@@ -46,14 +51,18 @@ function populateProductDetails(data) {
 
     var details = document.querySelector('.product-characteristics');
 
-    details.appendChild(createDetailElement('Автор: ', data.user.name));
-    details.appendChild(createDetailElement('Описание: ', data.description));
-    details.appendChild(createDetailElement('Цена: ', data.price, "лв."));
-    details.appendChild(createDetailElement('Размер: ', data.size));
-    details.appendChild(createDetailElement('Цвят: ', data.color));
-    details.appendChild(createDetailElement('Марка: ', data.brand));
-    details.appendChild(createDetailElement('Състояние на дрехата: ', data.condition));
-    details.appendChild(createDetailElement('Статус на обявата: ', data.status));
+    fetchUsername(data.idUser)
+        .then(username => {
+            console.log(username);
+            details.appendChild(createDetailElement('Автор: ', username));
+            details.appendChild(createDetailElement('Описание: ', data.description));
+            details.appendChild(createDetailElement('Цена: ', data.price, "лв."));
+            details.appendChild(createDetailElement('Размер: ', data.size));
+            details.appendChild(createDetailElement('Цвят: ', data.color));
+            details.appendChild(createDetailElement('Марка: ', data.brand));
+            details.appendChild(createDetailElement('Състояние на дрехата: ', data.condition));
+            details.appendChild(createDetailElement('Статус на обявата: ', data.status));
+        })
 }
 
 function deleteProduct(productId, userId) {
@@ -87,7 +96,7 @@ function addEditButtons(data) {
     var deleteButton = document.createElement('button');
     deleteButton.textContent = "Изтрий";
     deleteButton.setAttribute('class', 'product-button')
-    deleteButton.onclick = () => { deleteProduct(data.id, data.user.id) }
+    deleteButton.onclick = () => { deleteProduct(data.id, data.idUser) }
 
     var editButton = document.createElement('button');
     editButton.textContent = "Редактирай";
@@ -110,7 +119,8 @@ function addDeleteButton(data) {
 }
 
 function orderProduct(productId, userId) {
-    const address = document.querySelector('.address-text-field').textContent;
+    const address = document.querySelector('.address-text-field').value;
+    console.log("Address ", address);
 
     var data = {
         userId: userId,
@@ -168,7 +178,7 @@ function addOrderButton(productId, userId) {
 }
 
 function fetchUsername(userId) {
-    return fetch('http://localhost:8080/user/' + userId)
+    return fetch('http://localhost:8080/users/' + userId)
         .then(response => {
             if (response.status == 404) {
                 throw new Error('User not found with id: ' + userId);
@@ -179,21 +189,40 @@ function fetchUsername(userId) {
             return response.json();
         })
         .then(body => {
-            body.data.username;
+            return body.data.name;
+        })
+}
+
+function fetchOrder(productId) {
+    return fetch('http://localhost:8080/orders/product/' + productId)
+        .then(response => {
+            if (response.status == 404) {
+                throw new Error('Order not found with id: ' + productId);
+            }
+            else if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(body => {
+            return body.data[0];
         })
 }
 
 function populateOrderDetails(order) {
     console.log(order);
-    //Fix this to buyer
-    // const username = fetchUsername(order.userId);
-    const username = "Buyer"
+
     const address = order.address;
 
     var details = document.querySelector('.product-characteristics');
 
-    details.appendChild(createDetailElement('Закупен от: ', username));
     details.appendChild(createDetailElement('Поръчан на адрес: ', address));
+
+    fetchUsername(order.idUser)
+        .then(username => {
+            details.appendChild(createDetailElement('Закупен от: ', username));
+        });
+
 }
 
 function createDetailElement(label, value) {

@@ -15,7 +15,7 @@ export function setupCreateProductForm() {
         var formData = {
             userId: parseInt(localStorage.getItem('userId')),
             name: document.getElementById('name').value,
-            imagesUrl: document.getElementById('images').value,
+            images: document.getElementById('images').value,
             description: document.getElementById('description').value,
             price: parseFloat(document.getElementById('price').value),
             size: document.getElementById('size').value,
@@ -51,7 +51,7 @@ function submitProduct(formData) {
             console.log('Успешно създаден продукт:', data);
             alert("Успешно създаден продукт!");
             setTimeout(function () {
-                window.location.href = '#/products/user/' + userId;
+                window.location.href = '#/products/user/' + window.localStorage.getItem('userId');
             }, 500);
         })
         .catch(error => {
