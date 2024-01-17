@@ -29,6 +29,10 @@ function fetchAllProducts() {
     return fetch('http://localhost:8080/products')
         .then(response => {
             if (response.status == 204) {
+                var error = document.createElement('strong');
+                error.textContent = "Няма открити обяви";
+                document.querySelector('.container').appendChild(error);
+
                 throw new Error("Няма намерени обяви");
             }
             else if (!response.ok) {
@@ -45,6 +49,10 @@ function fetchUserProducts(userId) {
     return fetch(`http://localhost:8080/products/user/${userId}`)
         .then(response => {
             if (response.status == 204) {
+                var error = document.createElement('strong');
+                error.textContent = "Няма открити обяви";
+                document.querySelector('.container').appendChild(error);
+
                 throw new Error("Няма намерени обяви");
             }
             else if (!response.ok) {
@@ -60,8 +68,12 @@ function fetchUserProducts(userId) {
 function fetchUserOrders(userId) {
     return fetch(`http://localhost:8080/orders/user/${userId}`)
         .then(response => {
-            if (response.status == 404) {
-                throw new Error("Няма намерени поръчки.");
+            if (response.status == 204) {
+                var error = document.createElement('strong');
+                error.textContent = "Няма открити поръчки";
+                document.querySelector('.container').appendChild(error);
+
+                throw new Error("Няма намерени поръчки");
             } else if (!response.ok) {
                 throw new Error(response.statusText);
             }
